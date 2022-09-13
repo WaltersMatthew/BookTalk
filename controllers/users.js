@@ -109,15 +109,15 @@ router.get('/search', (req,res)=>{
 })
 
 router.post('/results', (req,res)=>{
-    // console.log(req.body)
-    const url = `http://openlibrary.org/search.json?title=${req.body}`
-    console.log(url)
-    // axios.get(url)
-    //     .then(response=>{
-    //         console.log(response.data)
-    //         res.render('users/show.ejs', {results: response.data} )
-    //     res.send('hi')
-    //     })
+    // console.log(req.body.book)
+    const url = `http://openlibrary.org/search.json?title=${req.body.book}`
+    // console.log(url)
+    axios.get(url)
+        .then(response=>{
+            console.log(response.data)
+            res.render('users/show.ejs', {results: response.data} )
+        // res.send('hi')
+        })
 })
 
 // router.get('/results', (req,res)=>{
