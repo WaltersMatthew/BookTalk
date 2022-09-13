@@ -4,7 +4,7 @@
 ---
 * Add your favorite books, authors, and genres to your profile
 * View book details from your profile
-* Leave reviews for all to see on your profile
+* Leave reviews on books for all to see
 * Check your friend's profiles and see their favorites lists and reviews
 ---
 I will be using the [Open Library](https://openlibrary.org) API to populate all data and render the JSON into a simple, easy to read format. 
@@ -72,13 +72,16 @@ DESTROY /books/:bookId -- delete reviews<br/>
 
 * Query API and render results on page when searched
 * sign up and log in users with unique usernames
-* Add books to favorites in profile
-* Add authors to favorites in profile
+* Add books and authors to favorites in profile
+* Delete books and authors in profile
 * Leave reviews on books
+* Edit reviews
 
 ### Stretch goals
 
+* 0-5 ratings on favorited books in profile
 * View all profiles
 * Add profiles to friends
 * View subjects
 * Radio buttons to search by author, title, or subject
+
