@@ -9,25 +9,6 @@ router.get('/new', (req,res) =>{
     res.render('users/new.ejs')
 })
 
-router.get('/search', (req,res)=>{
-    res.render('users/search.ejs')
-})
-
-router.get('/search/results', (req,res)=>{
-    console.log(req.body)
-    const url = `http://openlibrary.org/search.json?title=${req.body}`
-    console.log(url)
-    axios.get(url)
-        .then(response=>{
-            console.log(response.data)
-            res.render('users/show.ejs', {results: response.data} )
-        })
-        .catch(err =>{
-            console.log(err)
-            res.send('server error')
-        }) 
-})
-
 // POST /users -- create a new user in the db
 router.post('/', async (req,res)=>{
     try {
@@ -121,6 +102,30 @@ router.get('/profile', (req,res)=>{
             user: res.locals.user
         })
     }
+})
+
+router.get('/search', (req,res)=>{
+    res.render('users/search.ejs')
+})
+
+// router.post('/results', (req,res)=>{
+//     res.send('hi')
+// })
+
+router.get('/results', (req,res)=>{
+    res.send('hi')
+    // console.log(req.body)
+    // const url = `http://openlibrary.org/search.json?title=${req.body}`
+    // console.log(url)
+    // axios.get(url)
+    //     .then(response=>{
+    //         console.log(response.data)
+    //         res.render('users/show.ejs', {results: response.data} )
+    //     })
+    //     .catch(err =>{
+    //         console.log(err)
+    //         res.send('server error')
+    //     }) 
 })
 
 module.exports = router

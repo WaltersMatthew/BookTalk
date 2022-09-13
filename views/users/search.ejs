@@ -1,8 +1,6 @@
-<h1>Hey there <%= user.name %></h1>
-
 <h2>Search books or authors</h2>
 
-<form action="/search" method="GET">
+<form action="/results" method="POST">
     <label for="book">Search books</label>
     <input type="text" name="book" id="book">
     <button type="submit">Accio books!</button>
