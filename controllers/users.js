@@ -108,12 +108,20 @@ router.get('/search', (req,res)=>{
     res.render('users/search.ejs')
 })
 
-// router.post('/results', (req,res)=>{
-//     res.send('hi')
-// })
+router.post('/results', (req,res)=>{
+    // console.log(req.body)
+    const url = `http://openlibrary.org/search.json?title=${req.body}`
+    console.log(url)
+    // axios.get(url)
+    //     .then(response=>{
+    //         console.log(response.data)
+    //         res.render('users/show.ejs', {results: response.data} )
+    //     res.send('hi')
+    //     })
+})
 
-router.get('/results', (req,res)=>{
-    res.send('hi')
+// router.get('/results', (req,res)=>{
+//     res.send('hi')
     // console.log(req.body)
     // const url = `http://openlibrary.org/search.json?title=${req.body}`
     // console.log(url)
@@ -126,6 +134,6 @@ router.get('/results', (req,res)=>{
     //         console.log(err)
     //         res.send('server error')
     //     }) 
-})
+// })
 
 module.exports = router
