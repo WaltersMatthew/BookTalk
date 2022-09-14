@@ -94,31 +94,40 @@ router.get('/logout', (req,res) =>{
     res.redirect('/')
 })
 // Load profile page if user logged in
-router.get('/profile', (req,res)=>{
+router.get('/profile', async (req,res)=>{
     //if user is not logged...redirect
-    if(!res.locals.user){
-        res.redirect('/users/login?message=You must authenticate before you are authorized to view this resource.')
-    }else{
-        res.render('users/profile.ejs', {
-            user: res.locals.user
-        })
+    try{
+        if(!res.locals.user){
+            res.redirect('/users/login?message=You must authenticate before you are authorized to view this resource.')
+        }else{
+            const books = await db.book.findAll({
+                where: {userId: 1}
+            })
+            console.log('BOOKS!!!!', books)
+            res.render('users/profile.ejs', {
+                books: books,
+                user: res.locals.user
+            })
+        }
+    }catch(err){
+        console.log(err)
     }
 })
 
 //CREATE book favorite on button click
 router.post('/profile', async (req,res)=>{
     try{
-        console.log(req.body)
-        db.book.findOrCreate({
+        //create new favorite book
+        await db.book.findOrCreate({
             where:{
                 title: req.body.title,
                 img_url: req.body.img_url,
-                userId: res.locals.user
+                userId: res.locals.user.id
             }
         })
     res.redirect('/users/profile')
     }catch(err){
-        res.send('oopsies, server error')
+        res.send('server error')
         console.log(err)
     }
 })
@@ -146,8 +155,6 @@ router.post('/results', (req,res)=>{
 
 router.get('/results/:id', async (req,res)=>{
     try{
-         //find ID from result anchor
-        console.log('REQ.BODY!!!:', req.body)
          // call for book details
         const detailResponse = await axios.get(`https://openlibrary.org/works/${req.params.id}`)
         const response = await axios.get(`https://openlibrary.org/works/OL45883W.json`)
