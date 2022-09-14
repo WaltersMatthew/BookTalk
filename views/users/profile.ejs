@@ -2,4 +2,8 @@
 
 <% books.forEach(book =>{ %>
     <p><%=book.title%></p>
+    <img src="<%=book.img_url%>" alt="<% book.title %>">
+    <form action="/users/profile/<%=book.title%>/?_method=DELETE" method="POST">
+        <input type="submit" value="delete">
+    </form>
 <% }) %>

@@ -103,7 +103,6 @@ router.get('/profile', async (req,res)=>{
             const books = await db.book.findAll({
                 where: {userId: 1}
             })
-            console.log('BOOKS!!!!', books)
             res.render('users/profile.ejs', {
                 books: books,
                 user: res.locals.user
@@ -153,6 +152,7 @@ router.post('/results', (req,res)=>{
         })
 })
 
+//Going to show page with details on selected book
 router.get('/results/:id', async (req,res)=>{
     try{
          // call for book details
@@ -170,5 +170,18 @@ router.get('/results/:id', async (req,res)=>{
     }
 })
 
+//Delete a book from favorites on profile
+router.post('/profile/:id', async (req,res)=>{
+    console.log(req.params.id)
+    try{
+        await db.book.destroy({
+            where: {title: req.params.id}
+        })
+        res.redirect('/users/profile')
+    }catch(err){
+        console.log(err)
+    }
+
+})
 
 module.exports = router
