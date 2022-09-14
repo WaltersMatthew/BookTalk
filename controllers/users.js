@@ -103,37 +103,37 @@ router.get('/profile', (req,res)=>{
         })
     }
 })
-
+// render search page if signed in
 router.get('/search', (req,res)=>{
     res.render('users/search.ejs')
 })
-
+//Hit api with search result
 router.post('/results', (req,res)=>{
     // console.log(req.body.book)
-    const url = `http://openlibrary.org/search.json?title=${req.body.book}`
+    const url = `http://openlibrary.org/search.json?title=${req.body.book}` // interpolate search into url
     // console.log(url)
     axios.get(url)
         .then(response=>{
-            console.log(response.data)
-            res.render('users/show.ejs', {results: response.data} )
-        // res.send('hi')
+            if(response.data){
+                console.log(response.data.docs[0])
+                res.render('users/results.ejs', {results: response.data.docs} )
+            }else{
+                res.send('server error')
+            }
         })
 })
 
-// router.get('/results', (req,res)=>{
-//     res.send('hi')
-    // console.log(req.body)
-    // const url = `http://openlibrary.org/search.json?title=${req.body}`
-    // console.log(url)
-    // axios.get(url)
-    //     .then(response=>{
-    //         console.log(response.data)
-    //         res.render('users/show.ejs', {results: response.data} )
-    //     })
-    //     .catch(err =>{
-    //         console.log(err)
-    //         res.send('server error')
-    //     }) 
-// })
+router.get('/results/:id', (req,res)=>{
+    console.log('req.params:', req.params)
+    const url = `https://openlibrary.org/works/${req.params.id}`
+    axios.get(url)
+        .then(response =>{
+            res.render('users/show.ejs', {data : response.data})
+        }).catch(err=>{
+            console.log(err)
+            res.send('server error')
+        })
+})
+
 
 module.exports = router

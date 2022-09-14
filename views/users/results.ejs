@@ -1,0 +1,11 @@
+<h1>show results here</h1>
+<ul>
+    <% results.forEach(result =>{ %>
+        <%const array = result.key.split("/")%>
+        <%const id = array[array.length -1]%>
+        <li>
+            <a href="/users/results/<%=id%>"><%= result.title %></a>
+            <p>by <%=result.author_name%></p>
+        </li>    
+    <% }) %>
+</ul>
