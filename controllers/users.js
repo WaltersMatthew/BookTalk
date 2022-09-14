@@ -112,11 +112,11 @@ router.post('/profile', async (req,res)=>{
         db.book.findOrCreate({
             where:{
                 title: req.body.title,
-                authorId: req.body.author_key,
-                img_url: req.body.img_url
+                img_url: req.body.img_url,
+                userId: res.locals.user
             }
         })
-    res.redirect('users/profile')
+    res.redirect('/users/profile')
     }catch(err){
         res.send('oopsies, server error')
         console.log(err)
@@ -127,6 +127,7 @@ router.post('/profile', async (req,res)=>{
 router.get('/search', (req,res)=>{
     res.render('users/search.ejs')
 })
+
 //Hit api with search result
 router.post('/results', (req,res)=>{
     // console.log(req.body.book)
@@ -135,7 +136,7 @@ router.post('/results', (req,res)=>{
     axios.get(url)
         .then(response=>{
             if(response.data){
-                console.log(response.data.docs[0])
+                // console.log(response.data.docs[0])
                 res.render('users/results.ejs', {results: response.data.docs} )
             }else{
                 res.send('server error')
@@ -146,12 +147,16 @@ router.post('/results', (req,res)=>{
 router.get('/results/:id', async (req,res)=>{
     try{
          //find ID from result anchor
-        // console.log('req.params:', req.params)
+        console.log('REQ.BODY!!!:', req.body)
          // call for book details
-        const response = await axios.get(`https://openlibrary.org/works/${req.params.id}`)
-        // console.log(response.data)
+        const detailResponse = await axios.get(`https://openlibrary.org/works/${req.params.id}`)
+        const response = await axios.get(`https://openlibrary.org/works/OL45883W.json`)
+        // console.log(authorGrab.data)
         //send to show page
-        res.render('users/show.ejs', {data : response.data})
+        res.render('users/show.ejs', {
+            data : detailResponse.data,
+            authorData : response.data
+        })
     }catch(err){
             console.log(err)
             res.send('server error')

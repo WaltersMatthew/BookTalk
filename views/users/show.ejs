@@ -1,4 +1,5 @@
 <h1><%=data.title%></h1>
+<h2>By: <%= authorData.author%></h2>
 <% if (data.covers){ %>
     <% data.covers.forEach(cover => { %>
         <a href="https://covers.openlibrary.org/b/id/<%= cover %>-L.jpg"><img src="https://covers.openlibrary.org/b/id/<%= cover %>-M.jpg" alt="<%=data.title%>"></a>
@@ -9,14 +10,14 @@
 <form action="/users/profile" method="POST">
     <input type="hidden" value="<%=data.title%>" name="title" id="title">
     <input type="hidden" value="<%=data.author%>" name="author" id="author">
-    <input type="hidden" value="<%=data.covers[0]%>" name="img_url" id="img_url">
+    <input type="hidden" value="https://covers.openlibrary.org/b/id/<%= data.covers[0] %>-M.jpg" name="img_url" id="img_url">
     <button type="submit">Add to Favorites</button>
 </form>
 
 <h3>Leave a review</h3>
 <form action="/profile" method="POST">
     <label for="name">Name:</label>
-    <input type="text" name="name" id="name">
+    <input type="text" name="name" id="name"><br>
     <label for="content">Leave your review:</label>
     <textarea name="content" id="content"></textarea>
     <button type="submit">Submit Review</button>
