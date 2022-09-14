@@ -4,10 +4,9 @@
         <%const array = result.key.split("/")%>
         <%const id = array[array.length -1]%>
         <li>
-            <a href="/users/results/<%=id%>"><%= result.title %></a>
-            <p>by <%=result.author_name%>
-                <%=result.first_publish_year%>
-                <%=result.first_publish_date%>
+            <img src="https://covers.openlibrary.org/b/id/<%= result.cover_i %>-S.jpg" alt="<%= result.title %>">
+            <p><a href="/users/results/<%=id%>"><%= result.title %></a> by <%=result.author_name%>:
+                <%=result.first_publish_year%><%=result.first_publish_date%>
             </p>
             
         </li>    

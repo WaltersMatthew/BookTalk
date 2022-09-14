@@ -18,6 +18,7 @@ router.post('/', async (req,res)=>{
         const [newUser, created] = await db.user.findOrCreate({
             where: {
                 email: req.body.email,
+                name: req.body.name
             },
             defaults: {
                 password: hashedPassword
@@ -92,7 +93,7 @@ router.get('/logout', (req,res) =>{
     //redirect to home page
     res.redirect('/')
 })
-
+// Load profile page if user logged in
 router.get('/profile', (req,res)=>{
     //if user is not logged...redirect
     if(!res.locals.user){
@@ -103,6 +104,25 @@ router.get('/profile', (req,res)=>{
         })
     }
 })
+
+//CREATE book favorite on button click
+router.post('/profile', async (req,res)=>{
+    try{
+        console.log(req.body)
+        db.book.findOrCreate({
+            where:{
+                title: req.body.title,
+                authorId: req.body.author_key,
+                img_url: req.body.img_url
+            }
+        })
+    res.redirect('users/profile')
+    }catch(err){
+        res.send('oopsies, server error')
+        console.log(err)
+    }
+})
+
 // render search page if signed in
 router.get('/search', (req,res)=>{
     res.render('users/search.ejs')
@@ -126,10 +146,10 @@ router.post('/results', (req,res)=>{
 router.get('/results/:id', async (req,res)=>{
     try{
          //find ID from result anchor
-        console.log('req.params:', req.params)
+        // console.log('req.params:', req.params)
          // call for book details
         const response = await axios.get(`https://openlibrary.org/works/${req.params.id}`)
-        console.log(response.data)
+        // console.log(response.data)
         //send to show page
         res.render('users/show.ejs', {data : response.data})
     }catch(err){
