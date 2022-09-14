@@ -123,16 +123,19 @@ router.post('/results', (req,res)=>{
         })
 })
 
-router.get('/results/:id', (req,res)=>{
-    console.log('req.params:', req.params)
-    const url = `https://openlibrary.org/works/${req.params.id}`
-    axios.get(url)
-        .then(response =>{
-            res.render('users/show.ejs', {data : response.data})
-        }).catch(err=>{
+router.get('/results/:id', async (req,res)=>{
+    try{
+         //find ID from result anchor
+        console.log('req.params:', req.params)
+         // call for book details
+        const response = await axios.get(`https://openlibrary.org/works/${req.params.id}`)
+        console.log(response.data)
+        //send to show page
+        res.render('users/show.ejs', {data : response.data})
+    }catch(err){
             console.log(err)
             res.send('server error')
-        })
+    }
 })
 
 
