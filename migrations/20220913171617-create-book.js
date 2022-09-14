@@ -14,7 +14,7 @@ module.exports = {
       authorId: {
         type: Sequelize.STRING
       },
-      genre: {
+      img_url: {
         type: Sequelize.STRING
       },
       userId: {

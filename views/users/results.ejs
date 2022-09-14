@@ -5,7 +5,11 @@
         <%const id = array[array.length -1]%>
         <li>
             <a href="/users/results/<%=id%>"><%= result.title %></a>
-            <p>by <%=result.author_name%></p>
+            <p>by <%=result.author_name%>
+                <%=result.first_publish_year%>
+                <%=result.first_publish_date%>
+            </p>
+            
         </li>    
     <% }) %>
 </ul>
