@@ -138,8 +138,14 @@ router.get('/search', (req,res)=>{
 
 //Hit api with search result
 router.post('/results', (req,res)=>{
-    // console.log(req.body.book)
-    const url = `http://openlibrary.org/search.json?title=${req.body.book}` // interpolate search into url
+    console.log(req.body.author)
+    if (req.body.book) {
+        let url = `http://openlibrary.org/search.json?title=${req.body.book}` // interpolate search into url  
+    } else if (req.body.author){
+        let url = `https://openlibrary.org/search/authors.json?q=${req.body.author}`
+    }else if(req.body.subject){
+        let url = `http://openlibrary.org/subjects/${req.body.subject}.json`
+    }
     // console.log(url)
     axios.get(url)
         .then(response=>{
@@ -171,7 +177,7 @@ router.get('/results/:id', async (req,res)=>{
 })
 
 //Delete a book from favorites on profile
-router.post('/profile/:id', async (req,res)=>{
+router.delete('/profile/:id', async (req,res)=>{
     console.log(req.params.id)
     try{
         await db.book.destroy({
