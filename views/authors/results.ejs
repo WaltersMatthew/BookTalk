@@ -1,0 +1,17 @@
+<h1>author search results</h1>
+
+<ul>
+    <% results.forEach(result =>{%>
+        <li>
+            <%if(result.name){%>
+                <p><strong><a href="/users/results/authors/<%=result.key%>"><%=result.name%></a></strong><br>
+                    <%if(result.birth_date){%>
+                        born: <%=result.birth_date%>
+                    <%}%>
+                </p>
+                <p>Top work: <%=result.top_work%></p>
+                <p>Total works: <%=result.work_count%></p>
+            <%}%>
+        </li>
+   <% })%>
+</ul>

@@ -1,0 +1,91 @@
+<!-- IF BOOK SEARCH -->
+<%if(data.title){%>
+    <%const array = data.key.split("/")%>
+    <%const id = array[array.length -1]%>
+    <h1><%=data.title%></h1>
+    <h2>By: <%= data.name%></h2>
+    <% if (data.covers){ %>
+        <% data.covers.forEach(cover => { %>
+            <a href="https://covers.openlibrary.org/b/id/<%= cover %>-L.jpg"><img src="https://covers.openlibrary.org/b/id/<%= cover %>-M.jpg" alt="<%=data.title%>"></a>
+        <% }) %>
+    <%}%>
+    <br>
+<!-- add to favorites button form -->
+    <form action="/users/profile" method="POST">
+        <input type="hidden" value="<%=data.title%>" name="title" id="title">
+        <input type="hidden" value="<%=data.author%>" name="author" id="author">
+        <input type="hidden" value="https://covers.openlibrary.org/b/id/<%= data.covers[0] %>-M.jpg" name="img_url" id="img_url">
+        <input type="hidden" value="<%=data.key%>" name="libraryId" id="libraryId">
+
+        <button type="submit">Add to Favorites</button>
+    </form>
+    <h3>Leave a review</h3>
+    <form action="/profile" method="POST">
+        <label for="name">Name:</label>
+        <input type="text" name="name" id="name"><br>
+        <label for="content">Leave your review:</label>
+        <textarea name="content" id="content"></textarea>
+        <button type="submit">Submit Review</button>
+    </form>
+
+    <% if(data.first_publish_date){ %>
+        <h2>Original publication date: <%= data.first_publish_date %></h2>
+    <%}%>
+
+    <%if(data.first_publish_year){%>
+        <h2>Original publication date: <%= data.first_publish_year %></h2>
+    <%}%>
+    
+    <%if(typeof data.description == 'object'){ %>
+    <h2>Plot synopsis:</h2>
+    <%=data.description.value%>
+    <%}else{%>
+        <h2>Plot synopsis:</h2>
+        <%=data.description%>
+    <%}%>
+    
+    <% if(data.opening_sentence) {%>
+        <h2>Opening sentence:</h2>
+        <p>"<%=data.first_sentence.value%>"</p>
+    <%}else if(data.first_sentence){
+        if(typeof data.first_sentence == 'object'){%>
+            <h2>Opening sentence:</h2>
+            <p>"<%=data.first_sentence.value%>"</p>
+        <%}else{%>
+        <h2>Opening sentence:</h2>
+        <p>"<%=data.first_sentence%>"</p>
+        <%}%>
+    <%}%>
+    <% if(data.subjects){ %> 
+    <h2>Subjects and themes:</h2>
+    <ul>
+        <% data.subjects.forEach(subject => { %>
+            <li><%=subject%></li>
+        <%})%>
+    </ul>
+    <%}%>
+    
+    <% if(data.subject_people){%>
+        <h2>Key Characters:</h2>
+        <ul>
+            <% data.subject_people.forEach(person =>{%>
+                <li><%=person%></li>
+           <% }) %>
+        </ul>
+    <%}%>
+    
+    <h2>Reviews:</h2>
+    <p><strong>Name</strong></p>
+    <p>review content</p>
+<%}%>
+
+<!-- IF AUTHOR SEARCH -->
+<%if (data.type === "author"){%>
+    <%data.forEach(author=>{%>
+        <h3><%=author.name%></h3>
+    <%})%>
+
+
+
+
+<%}%>    

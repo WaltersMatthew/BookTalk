@@ -5,16 +5,6 @@
         <%const array = result.key.split("/")%>
         <%const id = array[array.length -1]%>
         <li>
-            <!-- if doing author search, display these results -->
-            <%if(result.name){%>
-                <p><strong><%=result.name%></strong><br>
-                    <%if(result.birth_date){%>
-                        born: <%=result.birth_date%>
-                    <%}%>
-                </p>
-                <p>Top work: <%=result.top_work%></p>
-                <p>Total works: <%=result.work_count%></p>
-            <%}%>
             <!-- if doing book search, display these results
              -->
             <% if(result.cover_i){ %>
