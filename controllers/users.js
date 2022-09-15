@@ -138,26 +138,26 @@ router.get('/search', (req,res)=>{
 
 //Hit api with search result
 router.post('/results', (req,res)=>{
-    console.log(req.body.author)
+    let url;
     if (req.body.book) {
-        let url = `http://openlibrary.org/search.json?title=${req.body.book}` // interpolate search into url  
+        url = `http://openlibrary.org/search.json?title=${req.body.book}` // interpolate search into url  
     } else if (req.body.author){
-        let url = `https://openlibrary.org/search/authors.json?q=${req.body.author}`
-    }else if(req.body.subject){
-        let url = `http://openlibrary.org/subjects/${req.body.subject}.json`
+        url = `https://openlibrary.org/search/authors.json?q=${req.body.author}`
     }
-    // console.log(url)
+    console.log(url)
     axios.get(url)
         .then(response=>{
+            console.log(response.data)
             if(response.data){
-                // console.log(response.data.docs[0])
                 res.render('users/results.ejs', {results: response.data.docs} )
             }else{
                 res.send('server error')
             }
+        }).catch(err =>{
+            console.log(err)
+            res.send('poop')
         })
 })
-
 //Going to show page with details on selected book
 router.get('/results/:id', async (req,res)=>{
     try{
@@ -177,15 +177,16 @@ router.get('/results/:id', async (req,res)=>{
 })
 
 //Delete a book from favorites on profile
-router.delete('/profile/:id', async (req,res)=>{
-    console.log(req.params.id)
+router.post('/profile/:id', async (req,res)=>{
     try{
+        console.log('CONSOLE LOG!!!!', req.params.id)
         await db.book.destroy({
             where: {title: req.params.id}
         })
         res.redirect('/users/profile')
     }catch(err){
         console.log(err)
+        res.send('server error')
     }
 
 })
