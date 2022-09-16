@@ -1,3 +1,4 @@
+
 <%const array = data.key.split("/")%>
 <%const id = array[array.length -1]%>
 <!-- IF BOOK SEARCH -->
@@ -76,12 +77,20 @@
            <% }) %>
         </ul>
     <%}%>
-    <%reviews.forEach(review => { %>
-        <p><%=review%></p>
-    <%})%>
-    <h2>Reviews:</h2>
-    <p><strong>Name</strong></p>
-    <p>review content</p>
+
+    <h2>Hear it from your fellow users!</h2>
+    <%if (!reviews){ %>
+        <p>Be the first to leave a review!</p>
+    <%}%>
+
+    <%if(reviews){%>
+        <%reviews.forEach(review => { %>
+            <p><%=review.name%>:<br>
+            <%=review.content%></p>
+           <a href="/users/results/<%=id%>/edit/<%=review.id%>">edit</a>
+        <%})%>
+    <%}%>
+
 <%}%>
 
 <!-- IF AUTHOR SEARCH -->

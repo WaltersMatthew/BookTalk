@@ -4,6 +4,7 @@ const db = require('../models')
 const crypto = require('crypto-js')
 const bcrypt = require('bcrypt')
 const axios = require('axios')
+
 // GET /users/new -- render a form to create a new user
 router.get('/new', (req,res) =>{
     res.render('users/new.ejs')
@@ -149,10 +150,16 @@ router.get('/results/:id', async (req,res)=>{
         const authorResponse = await axios.get(`https://openlibrary.org/authors/${req.params.id}.json`)
         // console.log(authorGrab.data)
         //send to show page
+        const reviews = await db.review.findAll({
+            where: {
+                bookId: req.params.id
+            }
+        })
         console.log(res.locals.user.dataValues.id)
         res.render('books/show.ejs', {
             data : detailResponse.data,
-            authorData : authorResponse.data.docs
+            authorData : authorResponse.data.docs,
+            reviews: reviews
         })
     }catch(err){
             console.log(err)
@@ -224,20 +231,64 @@ router.post('/results/:id', async (req,res)=>{
             content: req.body.content,
             bookId: req.body.id
         })
-        await db.review.getAll({
+        const response = await axios.get(`https://openlibrary.org/works/${req.params.id}`)
+        const reviews = await db.review.findAll({
             where: {
                 bookId: req.params.id
             }
         })
-        console.log(req.params.id)
-        res.render('/books/show.ejs')
+        res.render('books/show.ejs', {
+            data : response.data,
+            reviews: reviews
+        })
     }catch(err){
         console.log(err)
         res.send('server error')
     }
 })
 
+router.get('/results/:bookid/edit/:id', async (req,res)=>{
+    try {
+        const review = await db.review.findOne({
+            where:{
+                bookId: req.params.bookid,
+                name: res.locals.user.name
+            }
+        })
+        const response = await axios.get(`https://openlibrary.org/works/${req.params.bookid}`)  
+        res.render('books/edit.ejs', {
+            review: review,
+            data: response.data
+        })
+        console.log(req.params.bookid)
+    } catch (error) {
+        console.log(error)
+        res.send('server error')
+    }
+})
 
+router.put('/results/:bookid', async (req,res)=>{
+    try {
+        const review = await db.review.update({
+            where:{
+                bookId: req.params.id,
+                userId: res.locals.user.id,
+                name: req.body.name,
+                content: req.body.content,
+                bookId: req.body.bookId
+            }
+        })
+        console.log(bookid)
+        const response = await axios.get(`https://openlibrary.org/works/${req.params.bookid}`)   
+        res.redirect('/users/results/:id', {
+            review: review,
+            data: response.data
+        })
+    } catch (error) {
+        console.log(error)
+        res.send('server error')
+    }
+})
 
 
 module.exports = router
