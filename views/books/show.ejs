@@ -1,7 +1,7 @@
+<%const array = data.key.split("/")%>
+<%const id = array[array.length -1]%>
 <!-- IF BOOK SEARCH -->
 <%if(data.title){%>
-    <%const array = data.key.split("/")%>
-    <%const id = array[array.length -1]%>
     <h1><%=data.title%></h1>
     <h2>By: <%= data.name%></h2>
     <% if (data.covers){ %>
@@ -20,11 +20,12 @@
         <button type="submit">Add to Favorites</button>
     </form>
     <h3>Leave a review</h3>
-    <form action="/profile" method="POST">
+    
+    <form action="/users/results/<%=id%>" method="POST">
         <label for="name">Name:</label>
         <input type="text" name="name" id="name"><br>
         <label for="content">Leave your review:</label>
-        <textarea name="content" id="content"></textarea>
+        <textarea type="text" name="content" id="content"></textarea>
         <button type="submit">Submit Review</button>
     </form>
 

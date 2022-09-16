@@ -113,34 +113,14 @@ router.get('/profile', async (req,res)=>{
     }
 })
 
-
-
-//CREATE book favorite on button click
-router.post('/profile', async (req,res)=>{
-    try{
-        console.log(req.body.libraryId)
-        //create new favorite book
-        await db.book.findOrCreate({
-            where:{
-                title: req.body.title,
-                img_url: req.body.img_url,
-                userId: res.locals.user.id,
-                libraryId: req.body.libraryId
-            }
-        })
-    res.redirect('/users/profile')
-    }catch(err){
-        res.send('sarva error')
-        console.log(err)
-    }
-})
-
 // render search page if signed in
 router.get('/search', (req,res)=>{
     res.render('users/search.ejs')
 })
 
-//Hit api with search result
+
+
+//Hit book api with search result
 router.post('/results', (req,res)=>{
         const url = `http://openlibrary.org/search.json?title=${req.body.book}` // interpolate search into url  
     // } else if (req.body.author){//if author search
@@ -159,17 +139,7 @@ router.post('/results', (req,res)=>{
             res.send('poop')
         })
 })
-router.post('/results/authors', async (req,res)=>{
-    try {
-        const response = await axios.get(`http://openlibrary.org/authors.json?q=${req.body.author}`)
-        console.log(response.data)
-        // res.render('authors/results.ejs', {results: response.data.docs})
-        res.send('poop')
-    } catch (error) {
-        console.log(error)
-        res.send('hi bud')
-    }
-})
+
 
 //Going to show page with details on selected book
 router.get('/results/:id', async (req,res)=>{
@@ -179,7 +149,7 @@ router.get('/results/:id', async (req,res)=>{
         const authorResponse = await axios.get(`https://openlibrary.org/authors/${req.params.id}.json`)
         // console.log(authorGrab.data)
         //send to show page
-        console.log(detailResponse)
+        // console.log(detailResponse)
         res.render('books/show.ejs', {
             data : detailResponse.data,
             authorData : authorResponse.data
@@ -190,15 +160,49 @@ router.get('/results/:id', async (req,res)=>{
     }
 })
 
+//author api call
+router.post('/results/authors', async (req,res)=>{
+    try {
+        const response = await axios.get(`http://openlibrary.org/authors.json?q=${req.body.author}`)
+        // console.log(response.data)
+        // res.render('authors/results.ejs', {results: response.data.docs})
+        res.send('poop')
+    } catch (error) {
+        console.log(error)
+        res.send('hi bud')
+    }
+})
+// route to show page for AUTHORS
 router.get('/results/authors/:id', async (req,res)=>{
     const response = await axios.get(`https://openlibrary.org/authors/${req.params.id}.json`)
-    console.log(response.data)
+    // console.log(response.data)
     res.render('authors/show.ejs', {data : response.data})
 })
+
+//CREATE book favorite on button click
+router.post('/profile', async (req,res)=>{
+    try{
+        // console.log(req.body.libraryId)
+        //create new favorite book
+        await db.book.findOrCreate({
+            where:{
+                title: req.body.title,
+                img_url: req.body.img_url,
+                userId: res.locals.user.id,
+                libraryId: req.body.libraryId
+            }
+        })
+    res.redirect('/users/profile')
+    }catch(err){
+        res.send('sarva error')
+        console.log(err)
+    }
+})
+
+
 //Delete a book from favorites on profile
 router.post('/profile/:id', async (req,res)=>{
     try{
-        console.log('CONSOLE LOG!!!!', req.params.id)
         await db.book.destroy({
             where: {title: req.params.id}
         })
@@ -209,5 +213,26 @@ router.post('/profile/:id', async (req,res)=>{
     }
 
 })
+
+//create new comment
+router.post('/users/results/:id', async (req,res)=>{
+    console.log(req.body.name, req.body.content, req.params.id)
+    try{
+        const newComment = await db.review.create({
+            userId: res.locals.user,
+            name: req.body.name,
+            content: req.body.content,
+            bookId: req.params.id
+        })
+        console.log(req.params.id)
+        res.redirect(`/results/${req.params.id}`)
+    }catch(err){
+        console.log(err)
+        res.send('server error')
+    }
+})
+
+
+
 
 module.exports = router

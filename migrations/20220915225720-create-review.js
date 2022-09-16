@@ -11,11 +11,14 @@ module.exports = {
       userId: {
         type: Sequelize.INTEGER
       },
+      name: {
+        type: Sequelize.STRING
+      },
       content: {
         type: Sequelize.STRING
       },
       bookId: {
-        type: Sequelize.INTEGER
+        type: Sequelize.STRING
       },
       createdAt: {
         allowNull: false,
