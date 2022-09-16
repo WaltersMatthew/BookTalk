@@ -260,7 +260,6 @@ router.get('/results/:bookid/edit/:id', async (req,res)=>{
             review: review,
             data: response.data
         })
-        console.log(req.params.bookid)
     } catch (error) {
         console.log(error)
         res.send('server error')
@@ -278,7 +277,6 @@ router.put('/results/:bookid', async (req,res)=>{
                 bookId: req.body.bookId
             }
         })
-        console.log(bookid)
         const response = await axios.get(`https://openlibrary.org/works/${req.params.bookid}`)   
         res.redirect('/users/results/:id', {
             review: review,
@@ -286,7 +284,7 @@ router.put('/results/:bookid', async (req,res)=>{
         })
     } catch (error) {
         console.log(error)
-        res.send('server error')
+        res.send('server error on put')
     }
 })
 
