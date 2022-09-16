@@ -149,10 +149,10 @@ router.get('/results/:id', async (req,res)=>{
         const authorResponse = await axios.get(`https://openlibrary.org/authors/${req.params.id}.json`)
         // console.log(authorGrab.data)
         //send to show page
-        // console.log(detailResponse)
+        console.log(res.locals.user.dataValues.id)
         res.render('books/show.ejs', {
             data : detailResponse.data,
-            authorData : authorResponse.data
+            authorData : authorResponse.data.docs
         })
     }catch(err){
             console.log(err)
@@ -215,17 +215,22 @@ router.post('/profile/:id', async (req,res)=>{
 })
 
 //create new comment
-router.post('/users/results/:id', async (req,res)=>{
-    console.log(req.body.name, req.body.content, req.params.id)
+router.post('/results/:id', async (req,res)=>{
+    console.log(res.locals.user)
     try{
         const newComment = await db.review.create({
-            userId: res.locals.user,
+            userId: res.locals.user.dataValues.id,
             name: req.body.name,
             content: req.body.content,
-            bookId: req.params.id
+            bookId: req.body.id
+        })
+        await db.review.getAll({
+            where: {
+                bookId: req.params.id
+            }
         })
         console.log(req.params.id)
-        res.redirect(`/results/${req.params.id}`)
+        res.render('/books/show.ejs')
     }catch(err){
         console.log(err)
         res.send('server error')

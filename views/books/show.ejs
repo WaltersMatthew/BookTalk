@@ -3,7 +3,6 @@
 <!-- IF BOOK SEARCH -->
 <%if(data.title){%>
     <h1><%=data.title%></h1>
-    <h2>By: <%= data.name%></h2>
     <% if (data.covers){ %>
         <% data.covers.forEach(cover => { %>
             <a href="https://covers.openlibrary.org/b/id/<%= cover %>-L.jpg"><img src="https://covers.openlibrary.org/b/id/<%= cover %>-M.jpg" alt="<%=data.title%>"></a>
@@ -19,13 +18,16 @@
 
         <button type="submit">Add to Favorites</button>
     </form>
+
+<!-- ADD A REVIEW -->
     <h3>Leave a review</h3>
     
     <form action="/users/results/<%=id%>" method="POST">
         <label for="name">Name:</label>
         <input type="text" name="name" id="name"><br>
         <label for="content">Leave your review:</label>
-        <textarea type="text" name="content" id="content"></textarea>
+        <textarea type="text" name="content" id="content" plaaceholder="Leave your review..."></textarea>
+        <input type="hidden" name="id" value="<%=id%>">
         <button type="submit">Submit Review</button>
     </form>
 
@@ -74,7 +76,9 @@
            <% }) %>
         </ul>
     <%}%>
-    
+    <%reviews.forEach(review => { %>
+        <p><%=review%></p>
+    <%})%>
     <h2>Reviews:</h2>
     <p><strong>Name</strong></p>
     <p>review content</p>
