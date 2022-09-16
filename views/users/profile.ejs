@@ -1,8 +1,10 @@
 <h2>Welcome to your profile, <%=user.name%>! 🎉</h2>
 
 <% books.forEach(book =>{ %>
+    <%const array = book.libraryId.split("/")%>
+    <%const id = array[array.length -1]%>
     <p><%=book.title%></p>
-    <a href="/users/results/<%=book.id%>"><img src="<%=book.img_url%>" alt="<% book.title %>"></a>
+    <a href="/users/results/<%=id%>"><img src="<%=book.img_url%>" alt="<% book.title %>"></a>
     <form action="/users/profile/<%=book.title%>/?_method=DELETE" method="POST">
         <input type="submit" value="delete">
     </form>
