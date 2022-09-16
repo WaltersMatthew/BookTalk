@@ -1,11 +1,18 @@
 <h2>Welcome to your profile, <%=user.name%>! 🎉</h2>
 
-<% books.forEach(book =>{ %>
+<h3>Favorited books</h3>
+<card>
+    <% books.forEach(book =>{ %>
     <%const array = book.libraryId.split("/")%>
     <%const id = array[array.length -1]%>
-    <p><%=book.title%></p>
-    <a href="/users/results/<%=id%>"><img src="<%=book.img_url%>" alt="<% book.title %>"></a>
-    <form action="/users/profile/<%=book.title%>/?_method=DELETE" method="POST">
-        <input type="submit" value="delete">
-    </form>
-<% }) %>
+    <div>
+        <a href="/users/results/<%=id%>"><img src="<%=book.img_url%>" alt="<% book.title %>" class="rounded float-left"></a>
+        <p><%=book.title%></p>
+        <form action="/users/profile/<%=book.title%>/?_method=DELETE" method="POST">
+            <input type="submit" value="delete">
+        </form>
+        <% }) %>ß
+    </div>
+</card>
+
+

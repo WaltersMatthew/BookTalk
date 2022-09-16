@@ -266,22 +266,21 @@ router.get('/results/:bookid/edit/:id', async (req,res)=>{
     }
 })
 
-router.put('/results/:bookid', async (req,res)=>{
+router.put('/results/:bookid/edit/:id', async (req,res)=>{
     try {
+        console.log('****THIS IS THE CONSOLE LOG****', req.params.bookid, req.params.id)
         const review = await db.review.update({
-            where:{
-                bookId: req.params.id,
-                userId: res.locals.user.id,
-                name: req.body.name,
-                content: req.body.content,
-                bookId: req.body.bookId
-            }
+            bookId: req.body.bookId,
+            userId: res.locals.user.id,
+            name: req.body.name,
+            content: req.body.content
+        },{
+        where: {
+            id: req.params.id
+        }
         })
         const response = await axios.get(`https://openlibrary.org/works/${req.params.bookid}`)   
-        res.redirect('/users/results/:id', {
-            review: review,
-            data: response.data
-        })
+        res.redirect(`/users/results/${req.params.bookid}`)
     } catch (error) {
         console.log(error)
         res.send('server error on put')
