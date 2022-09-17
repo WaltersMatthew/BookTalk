@@ -5,7 +5,7 @@
     <% books.forEach(book =>{ %>
     <%const array = book.libraryId.split("/")%>
     <%const id = array[array.length -1]%>
-    <div class="card" style="width: 18rem; display: inline-block;">
+    <div class="card justify-content-start" style="width: 18rem; display: inline-block;">
         <img src="<%=book.img_url%>" class="card-img-top" alt="<%=book.title%>">
         <div class="card-body">
             <h5 class="card-title"><%=book.title%></h5>

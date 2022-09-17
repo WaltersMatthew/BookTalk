@@ -2,9 +2,9 @@
 <%const id = array[array.length -1]%>
 <h2>edit review</h2>
 <form action="/users/results/<%=id%>/edit/<%=review.id%>/?_method=PUT" method="POST">
-<label for="content">Edit your review</label>
-<textarea name="content"></textarea>
-<input type="hidden" name="name" value="<%=review.name%>">
-<input type="hidden" name="bookId" value="<%=id%>">
-<button type="submit" class="btn btn-primary">submit changes</button>
+    <label for="content">Edit your review</label>
+    <textarea name="content"></textarea>
+    <input type="hidden" name="name" value="<%=review.name%>">
+    <input type="hidden" name="bookId" value="<%=id%>">
+    <button type="submit" class="btn btn-primary">submit changes</button>
 </form>

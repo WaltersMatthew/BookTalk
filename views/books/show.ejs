@@ -31,22 +31,31 @@
         <input type="hidden" name="id" value="<%=id%>">
         <button type="submit">Submit Review</button>
     </form>
+<div class="container">
+    <div class="row">
+        <div class="col">
+            <% if(data.first_publish_date){ %>
+                <h4>Original publication date: <%= data.first_publish_date %></h4>
+            <%}%>
+        
+            <%if(data.first_publish_year){%>
+                <h2>Original publication date: <%= data.first_publish_year %></h2>
+            <%}%>
+        </div>
+        <div class="col">
+            <%if(typeof data.description == 'object'){ %>
+            <h2>Plot synopsis:</h2>
+            <%=data.description.value%>
+            <%}else{%>
+                <h2>Plot synopsis:</h2>
+                <%=data.description%>
+            <%}%>
+        </div>
+        
+    </div>
 
-    <% if(data.first_publish_date){ %>
-        <h2>Original publication date: <%= data.first_publish_date %></h2>
-    <%}%>
-
-    <%if(data.first_publish_year){%>
-        <h2>Original publication date: <%= data.first_publish_year %></h2>
-    <%}%>
+</div>
     
-    <%if(typeof data.description == 'object'){ %>
-    <h2>Plot synopsis:</h2>
-    <%=data.description.value%>
-    <%}else{%>
-        <h2>Plot synopsis:</h2>
-        <%=data.description%>
-    <%}%>
     
     <% if(data.opening_sentence) {%>
         <h2>Opening sentence:</h2>

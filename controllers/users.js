@@ -179,6 +179,8 @@ router.post('/results/authors', async (req,res)=>{
         res.send('hi bud')
     }
 })
+
+
 // route to show page for AUTHORS
 router.get('/results/authors/:id', async (req,res)=>{
     const response = await axios.get(`https://openlibrary.org/authors/${req.params.id}.json`)
@@ -208,7 +210,7 @@ router.post('/profile', async (req,res)=>{
 
 
 //Delete a book from favorites on profile
-router.post('/profile/:id', async (req,res)=>{
+router.delete('/profile/:id', async (req,res)=>{
     try{
         await db.book.destroy({
             where: {title: req.params.id}
