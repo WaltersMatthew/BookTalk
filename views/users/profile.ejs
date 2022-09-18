@@ -1,19 +1,26 @@
-<h2>Welcome to your profile, <%=user.name%>! 🎉</h2>
+<h2 style="text-align: center;"><u> <%=user.name%>'s favorite books 📚</u></h2>
 
-<h3>Favorited books</h3>
-<card>
+<div class="container d-flex align-items-center">
     <% books.forEach(book =>{ %>
-    <%const array = book.libraryId.split("/")%>
-    <%const id = array[array.length -1]%>
-    <div class="card justify-content-start" style="width: 18rem; display: inline-block;">
-        <img src="<%=book.img_url%>" class="card-img-top" alt="<%=book.title%>">
-        <div class="card-body">
-            <h5 class="card-title"><%=book.title%></h5>
-            <p class="card-text"></p>
-            <a href="/users/results/<%=id%>" class="btn btn-primary">See details</a>
-            <form action="/users/profile/<%=book.title%>/?_method=DELETE" method="POST">
-                <button type="submit" class="btn btn-primary">Delete</button>
-            </form>
+        <%const array = book.libraryId.split("/")%>
+        <%const id = array[array.length -1]%>
+    
+        <div class="card justify-content-center flex-wrap" style="margin-top: 25px; width: 18rem; height: 500px; display: inline-block;" >
+            <img src="<%=book.img_url%>" class="card-img-top" style="height: 330px;" alt="<%=book.title%>">
+            
+            <div class="card-body" >
+                <p class="card-title" style="text-align: center;"><strong><%=book.title%></strong></p>  
+                <div>
+                    <div class="d-flex justify-content-center align-items-end">
+                        <a href="/users/results/<%=id%>" class="btn btn-primary">See details</a>    
+                    </div>
+                    <div class="d-flex justify-content-center align-items-end">
+                        <form action="/users/profile/<%=book.title%>/?_method=DELETE" method="POST">
+                        <button type="submit" class="btn btn-primary">Delete</button>
+                        </form>
+                    </div>
+                </div>
+            </div>
         </div>
-    </div>
-<% }) %>
+    <% }) %>
+</div>
