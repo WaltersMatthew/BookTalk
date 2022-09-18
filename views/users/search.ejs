@@ -1,21 +1,16 @@
-<h2>Search books or authors</h2>
-
-<form action="/users/results" method="POST">
-
-    <!-- <label for="book">Choose your search type:</label>
-    <select name="searchOptions">
-        <option value="null">-Select one-</option>
-        <option value="books">books</option>
-        <option value="authors">authors</option>
-        <option value="genres">genres</option>
-    </select> -->
-    <label for="book">Search Books:</label>
-    <input type="text" name="book" id="book">
-    <button type="submit">Accio books!</button>
-</form>
-
-<form action="/users/results/authors" method="POST">
-    <label for="author">Search authors:</label>
-    <input type="text" name="author" id="author">
-    <button type="submit">Accio authors!</button>
-</form>
+<h2>Search books<!-- or authors--></h2>
+<div class="container">
+    <div class="form-group">
+        <form action="/users/results" method="POST">
+            <label for="book">Search Books:</label>
+            <input class="form-control" type="text" name="book" id="book">
+            <button class="btn btn-primary" type="submit">Accio books!</button>
+        </form>
+        
+        <!-- <form action="/users/results/authors" method="POST">
+            <label for="author">Search authors:</label>
+            <input class="form-control" type="text" name="author" id="author">
+            <button class="btn btn-primary" type="submit">Accio authors!</button>
+        </form> -->
+    </div>
+</div>

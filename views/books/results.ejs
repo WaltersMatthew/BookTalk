@@ -1,20 +1,26 @@
-<h1>show results here</h1>
+<div class="d-flex align-items-center justify-content-center">
+    <h1 class="align-items-center">Results for "<%=searchParams%>"</h1>
+</div>
 
-<ul>
-    <% results.forEach(result =>{ %>
-        <%const array = result.key.split("/")%>
-        <%const id = array[array.length -1]%>
-        <li>
-            <!-- if doing book search, display these results
-             -->
-            <% if(result.cover_i){ %>
-                <img src="https://covers.openlibrary.org/b/id/<%= result.cover_i %>-S.jpg" alt="<%= result.title %>">
-            <%}%>
-            <% if(result.title){%>
-                <p><a href="/users/results/<%=id%>"><%= result.title %></a> by <%=result.author_name%>:
-                    <%=result.first_publish_year%> <%=result.first_publish_date%>
-                </p>
-            <%}%>    
-        </li>
-    <% }) %>
-</ul>
+<div class="container">
+    <div class="col d-flex align-items-center justify-content-center">
+        <ul class="list-group">
+            <% results.forEach(result =>{ %>
+                <%const array = result.key.split("/")%>
+                <%const id = array[array.length -1]%>
+                <li class="list-group-item">
+                    <!-- if doing book search, display these results
+                     -->
+                    <% if(result.cover_i){ %>
+                        <img style="margin-left: 10px; float: left;" class="img-thumbnail" src="https://covers.openlibrary.org/b/id/<%= result.cover_i %>-S.jpg" alt="<%= result.title %>">
+                    <%}%>
+                    <% if(result.title){%>
+                        <p style="margin-left: 10px; text-align: center;"><a href="/users/results/<%=id%>"><%= result.title %></a> by <%=result.author_name%>:
+                            <%=result.first_publish_year%> <%=result.first_publish_date%>
+                        </p>
+                    <%}%>    
+                </li>
+            <% }) %>
+        </ul>
+    </div>
+</div>

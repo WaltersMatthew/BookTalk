@@ -131,7 +131,7 @@ router.post('/results', (req,res)=>{
         .then(response=>{
             // console.log(response.data.docs)
             if(response.data){
-                res.render('books/results.ejs', {results: response.data.docs} )
+                res.render('books/results.ejs', {results: response.data.docs, searchParams: req.body.book} )
             }else{
                 res.send('server error')
             }
