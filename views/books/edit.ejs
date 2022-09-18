@@ -1,9 +1,9 @@
 <%const array = data.key.split("/")%>
 <%const id = array[array.length -1]%>
 <h2>edit review</h2>
-<form action="/users/results/<%=id%>/edit/<%=review.id%>/?_method=PUT" method="POST">
+<form class="form-group" action="/users/results/<%=id%>/edit/<%=review.id%>/?_method=PUT" method="POST">
     <label for="content">Edit your review</label>
-    <textarea name="content"></textarea>
+    <textarea class="form-control" name="content"></textarea>
     <input type="hidden" name="name" value="<%=review.name%>">
     <input type="hidden" name="bookId" value="<%=id%>">
     <button type="submit" class="btn btn-primary">submit changes</button>
