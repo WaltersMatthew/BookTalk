@@ -33,30 +33,35 @@
         <input type="hidden" value="https://covers.openlibrary.org/b/id/<%= data.covers[0] %>-M.jpg" name="img_url" id="img_url">
         <input type="hidden" value="<%=data.key%>" name="libraryId" id="libraryId">
     
-        <button type="submit">Add to Favorites</button>
+        <button class="btn btn-primary" style="width: 200px; height: 50px;" type="submit">Add to Favorites</button>
     </form>
 </div>
 
 <!-- ADD A REVIEW -->
-<div class="row justify-content-center" style="margin-bottom: 10px;">
-    <h3>Leave a review</h3>
-</div>
+
 <div class="container">
-    <div class="row">
-        <div class="col">
+    <div class="row" style="margin-bottom: 10px;">
+        <div class="col border">
+            <div class="row justify-content-center" style="margin-bottom: 10px;">
+                <h3>Leave a review</h3>
+            </div>
+
             <form action="/users/results/<%=id%>" method="POST">
                 <div class="form-group">
                     <label for="name">Name</label>
                     <input class="form-control" type="text" name="name" id="name">
+
                     <label for="content">Share your thoughts</label>
                     <textarea class="form-control" type="text" name="content" id="content"></textarea>
+
                     <input type="hidden" name="id" value="<%=id%>">
+                    
                     <button type="submit" class="btn btn-primary">Submit Review</button>
                 </div>
             </form> 
         </div>
         <div class="col">
-            <h2>Hear it from your fellow users!</h2>
+            <h3>Hear it from your fellow users!</h3>
             
             <%if (!reviews){ %>
                 <p>Be the first to leave a review!</p>
@@ -75,21 +80,21 @@
 
 
 <div class="container">
-    <div class="row">
+    <div class="row" style="margin-bottom: 10px;">
         <div class="column">
             
         </div>
 
         <div class="column">
             <% if(data.opening_sentence) {%>
-                <h2>Opening sentence:</h2>
+                <h3>Opening sentence:</h3>
                 <p>"<%=data.first_sentence.value%>"</p>
             <%}else if(data.first_sentence){%>
                 <%if(typeof data.first_sentence == 'object'){%>
-                    <h2>Opening sentence:</h2>
+                    <h3>Opening sentence:</h3>
                     <p>"<%=data.first_sentence.value%>"</p>
                 <%}else{%>
-                <h2>Opening sentence:</h2>
+                <h3>Opening sentence:</h3>
                 <p>"<%=data.first_sentence%>"</p>
                 <%}%>
             <%}%>
@@ -98,20 +103,20 @@
 </div>
             
 <div class="container">
-    <div class="row">
+    <div class="row" style="margin-bottom: 10px;">
         <div class="col">
             <%if(typeof data.description == 'object'){ %>
-                <h2>Plot synopsis:</h2>
-                <p style="border-left: 5px solid #007bff;"><%=data.description.value%></p>
+                <h3>Plot synopsis:</h3>
+                <p style="border-left: 5px solid #007bff; padding-left: 10px;"><%=data.description.value%></p>
             <%}else{%>
-                <h2>Plot synopsis:</h2>
+                <h3>Plot synopsis:</h3>
                 <p style="border-left: 5px solid #007bff; padding-left: 10px;"><%=data.description%></p>
             <%}%>  
         </div>
 
         <div class="col">
             <% if(data.subjects){ %> 
-                <h2>Subjects and themes:</h2>
+                <h3>Subjects and themes:</h3>
                 <ul style="border-left: 5px solid #007bff;">
                     <% data.subjects.forEach(subject => { %>
                         <li><%=subject%></li>
@@ -122,10 +127,10 @@
     </div>
 </div>
 <div class="container">
-    <div class="row">
+    <div class="row" style="margin-bottom: 10px;">
         <div class="col">
             <% if(data.subject_people){%>
-                <h2>Key Characters:</h2>
+                <h3>Key Characters:</h3>
                 
                 <ul style="border-left: 5px solid #007bff;">
                     <% data.subject_people.forEach(person =>{%>
