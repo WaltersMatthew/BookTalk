@@ -2,16 +2,31 @@
 <%const array = data.key.split("/")%>
 <%const id = array[array.length -1]%>
 <!-- IF BOOK SEARCH -->
-<div class="row">
+<div class="row justify-content-center">
     <%if(data.title){%>
         <h1><%=data.title%></h1>
+    <%}%>
+</div>
+
+<div class="row justify-content-center">
+    <% if(data.first_publish_date){ %>
+        <h4><%= data.first_publish_date %></h4>
+    <%}%>
+    <%if(data.first_publish_year){%>
+        <h2><%= data.first_publish_year %></h2>
+    <%}%>
+</div> 
+
+<div class="row justify-content-center">
     <% if (data.covers){ %>
         <% data.covers.forEach(cover => { %>
-            <a href="https://covers.openlibrary.org/b/id/<%= cover %>-L.jpg"><img src="https://covers.openlibrary.org/b/id/<%= cover %>-M.jpg" alt="<%=data.title%>"></a>
+            <a href="https://covers.openlibrary.org/b/id/<%= cover %>-L.jpg"><img src="https://covers.openlibrary.org/b/id/<%= cover %>-M.jpg" alt="<%=data.title%>" height="300px"></a>
         <% }) %>
     <%}%>
-</div>  
-<div class="row">
+</div>
+
+<!-- add to favorites button form -->
+<div class="row justify-content-center" style="margin: 20px 0px;">
     <form action="/users/profile" method="POST">
         <input type="hidden" value="<%=data.title%>" name="title" id="title">
         <input type="hidden" value="<%=data.author%>" name="author" id="author">
@@ -21,106 +36,103 @@
         <button type="submit">Add to Favorites</button>
     </form>
 </div>
-<!-- add to favorites button form -->
 
 <!-- ADD A REVIEW -->
+<div class="row justify-content-center" style="margin-bottom: 10px;">
     <h3>Leave a review</h3>
-    
-    <form action="/users/results/<%=id%>" method="POST">
-        <label for="name">Name:</label>
-        <input type="text" name="name" id="name">
-        <label for="content">Leave your review:</label>
-        <textarea type="text" name="content" id="content" plaaceholder="Leave your review..."></textarea>
-        <input type="hidden" name="id" value="<%=id%>">
-        <button type="submit">Submit Review</button>
-    </form>
-    <div class="container">
-        <div class="row">
-            <div class="column">
-                <% if(data.first_publish_date){ %>
-                    <h4>Original publication date: <%= data.first_publish_date %></h4>
-                <%}%>
-                    
-                <%if(data.first_publish_year){%>
-                    <h2>Original publication date: <%= data.first_publish_year %></h2>
-                <%}%>
-            </div>
+</div>
+<div class="container">
+    <div class="row">
+        <div class="col">
+            <form action="/users/results/<%=id%>" method="POST">
+                <div class="form-group">
+                    <label for="name">Name</label>
+                    <input class="form-control" type="text" name="name" id="name">
+                    <label for="content">Share your thoughts</label>
+                    <textarea class="form-control" type="text" name="content" id="content"></textarea>
+                    <input type="hidden" name="id" value="<%=id%>">
+                    <button type="submit" class="btn btn-primary">Submit Review</button>
+                </div>
+            </form> 
+        </div>
+        <div class="col">
+            <h2>Hear it from your fellow users!</h2>
+            
+            <%if (!reviews){ %>
+                <p>Be the first to leave a review!</p>
+            <%}%>
+            
+            <%if(reviews){%>
+                <%reviews.forEach(review => { %>
+                    <p style="border-left: 5px solid #007bff; padding-left: 10px;"><%=review.name%>:<br>
+                    <%=review.content%></p>
+                <a href="/users/results/<%=id%>/edit/<%=review.id%>">edit</a>
+                <%})%>
+            <%}%>
+        </div>
+    </div>
+</div>
 
-            <div class="column">
-                <% if(data.opening_sentence) {%>
+
+<div class="container">
+    <div class="row">
+        <div class="column">
+            
+        </div>
+
+        <div class="column">
+            <% if(data.opening_sentence) {%>
+                <h2>Opening sentence:</h2>
+                <p>"<%=data.first_sentence.value%>"</p>
+            <%}else if(data.first_sentence){%>
+                <%if(typeof data.first_sentence == 'object'){%>
                     <h2>Opening sentence:</h2>
                     <p>"<%=data.first_sentence.value%>"</p>
-                <%}else if(data.first_sentence){%>
-                    <%if(typeof data.first_sentence == 'object'){%>
-                        <h2>Opening sentence:</h2>
-                        <p>"<%=data.first_sentence.value%>"</p>
-                    <%}else{%>
-                    <h2>Opening sentence:</h2>
-                    <p>"<%=data.first_sentence%>"</p>
-                    <%}%>
+                <%}else{%>
+                <h2>Opening sentence:</h2>
+                <p>"<%=data.first_sentence%>"</p>
                 <%}%>
-            </div>
+            <%}%>
         </div>
     </div>
+</div>
             
-    <div class="container">
-        <div class="row">
-            <div class="col">
-                <%if(typeof data.description == 'object'){ %>
-                    <h2>Plot synopsis:</h2>
-                    <%=data.description.value%>
-                    <%}else{%>
-                        <h2>Plot synopsis:</h2>
-                        <%=data.description%>
-                    <%}%>  
-            </div>
+<div class="container">
+    <div class="row">
+        <div class="col">
+            <%if(typeof data.description == 'object'){ %>
+                <h2>Plot synopsis:</h2>
+                <p style="border-left: 5px solid #007bff;"><%=data.description.value%></p>
+            <%}else{%>
+                <h2>Plot synopsis:</h2>
+                <p style="border-left: 5px solid #007bff; padding-left: 10px;"><%=data.description%></p>
+            <%}%>  
+        </div>
 
-            <div class="col">
-                <% if(data.subjects){ %> 
-                    <h2>Subjects and themes:</h2>
-                    <ul>
-                        <% data.subjects.forEach(subject => { %>
-                            <li><%=subject%></li>
-                        <%})%>
-                    </ul>
-            </div>
-            
+        <div class="col">
+            <% if(data.subjects){ %> 
+                <h2>Subjects and themes:</h2>
+                <ul style="border-left: 5px solid #007bff;">
+                    <% data.subjects.forEach(subject => { %>
+                        <li><%=subject%></li>
+                    <%})%>
+                </ul>
+            <%}%>
         </div>
     </div>
-    
-    <%if(reviews){%>
-        <%reviews.forEach(review => { %>
-            <p><%=review.name%>:<br>
-            <%=review.content%></p>
-        <a href="/users/results/<%=id%>/edit/<%=review.id%>">edit</a>
-        <%})%>
-    <%}%>
-            
-                    <% if(data.subject_people){%>
-                        <h2>Key Characters:</h2>
-                        <ul>
-                            <% data.subject_people.forEach(person =>{%>
-                                <li><%=person%></li>
-                                <% }) %>
-                            </ul>
-                            <%}%>
-                            
-                            <h2>Hear it from your fellow users!</h2>
-                            <%if (!reviews){ %>
-                                <p>Be the first to leave a review!</p>
-                                <%}%>
-                                
-                                
-                                <%}%>
-                                
-                                <!-- IF AUTHOR SEARCH -->
-                                <%if (data.type === "author"){%>
-                                    <%data.forEach(author=>{%>
-                                        <h3><%=author.name%></h3>
-                                        <%})%>
-                                        
-                                        
-                                        
-                                        <%}%>
-                                        
-                                        <%}%>    
+</div>
+<div class="container">
+    <div class="row">
+        <div class="col">
+            <% if(data.subject_people){%>
+                <h2>Key Characters:</h2>
+                
+                <ul style="border-left: 5px solid #007bff;">
+                    <% data.subject_people.forEach(person =>{%>
+                        <li><%=person%></li>
+                    <% }) %>
+                </ul>
+            <%}%>
+        </div>        
+    </div>
+</div>
