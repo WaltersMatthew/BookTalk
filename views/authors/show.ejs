@@ -6,11 +6,11 @@
             <h2>Details for author: <%=data.name%></h2>
             <p>Born: <%=data.birth_date%></p>
             <% data.links.forEach(link =>{ %>
-                <a href="<%=link.url%>"><%=link.title%></a> 
+                <a href="<%=link.url%>" target="_blank"><%=link.title%></a> 
             <%})%>
             <form action="/users/profile" method="POST" class="d-flex justify-content-center" style="margin-top: 100px;">
                 <input type="hidden" value="<%=data.name%>" name="<%=data.name%>">
-                <button type="submit" class="btn btn-primary d-flex" style="padding: 35px 50px;">Add to favorites</button>
+                <button type="submit" class="btn btn-primary" style="padding: 35px 50px;">Add to favorites</button>
             </form>
         </div>
         

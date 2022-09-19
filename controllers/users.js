@@ -115,6 +115,7 @@ router.get('/profile', async (req,res)=>{
         }
     }catch(err){
         console.log(err)
+        res.render('404.ejs')
     }
 })
 
@@ -141,7 +142,7 @@ router.post('/results', (req,res)=>{
             }
         }).catch(err =>{
             console.log(err)
-            res.send('poop')
+            res.render('404.ejs')
         })
 })
 
@@ -167,7 +168,7 @@ router.get('/results/:id', async (req,res)=>{
         })
     }catch(err){
             console.log(err)
-            res.send('server error')
+            res.render('404.ejs')
     }
 })
 
@@ -180,7 +181,7 @@ router.post('/results/authors', async (req,res)=>{
 
     } catch (error) {
         console.log(error)
-        res.send('hi bud')
+        res.render('404.ejs')
     }
 })
 
@@ -206,7 +207,7 @@ router.post('/profile', async (req,res)=>{
         })
     res.redirect('/users/profile')
     }catch(err){
-        res.send('sarva error')
+        res.render('404.ejs')
         console.log(err)
     }
 })
@@ -223,7 +224,7 @@ router.post('/profile', async (req,res)=>{
         })
     res.redirect('/users/profile')
     }catch(err){
-        res.send('npoe nope')
+        res.render('404.ejs')
         console.log(err)
     }
 })
@@ -237,7 +238,7 @@ router.delete('/profile/:id', async (req,res)=>{
         res.redirect('/users/profile')
     }catch(err){
         console.log(err)
-        res.send('server error')
+        res.render('404.ejs')
     }
 
 })
@@ -264,7 +265,7 @@ router.post('/results/:id', async (req,res)=>{
         })
     }catch(err){
         console.log(err)
-        res.send('server error')
+        res.render('404.ejs')
     }
 })
 
@@ -283,13 +284,12 @@ router.get('/results/:bookid/edit/:id', async (req,res)=>{
         })
     } catch (error) {
         console.log(error)
-        res.send('server error')
+        res.render('404.ejs')
     }
 })
 
 router.put('/results/:bookid/edit/:id', async (req,res)=>{
     try {
-        console.log('****THIS IS THE CONSOLE LOG****', req.params.bookid, req.params.id)
         const review = await db.review.update({
             bookId: req.body.bookId,
             userId: res.locals.user.id,
@@ -304,7 +304,7 @@ router.put('/results/:bookid/edit/:id', async (req,res)=>{
         res.redirect(`/users/results/${req.params.bookid}`)
     } catch (error) {
         console.log(error)
-        res.send('server error on put')
+        res.render('404.ejs')
     }
 })
 
