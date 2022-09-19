@@ -46,10 +46,9 @@
                 <h3>Leave a review</h3>
             </div>
 
-            <form action="/users/results/<%=id%>" method="POST">
+            <form action="/books/results/<%=id%>" method="POST">
                 <div class="form-group">
-                    <label for="name">Name</label>
-                    <input class="form-control" type="text" name="name" id="name">
+                    <input type="hidden" name="name" id="name">
 
                     <label for="content">Share your thoughts</label>
                     <textarea class="form-control" type="text" name="content" id="content"></textarea>
@@ -71,7 +70,7 @@
                 <%reviews.forEach(review => { %>
                     <p style="border-left: 5px solid #007bff; padding-left: 10px;"><%=review.name%>:<br>
                     <%=review.content%></p>
-                <a href="/users/results/<%=id%>/edit/<%=review.id%>">edit</a>
+                <a href="/books/results/<%=id%>/edit/<%=review.id%>">edit</a>
                 <%})%>
             <%}%>
         </div>

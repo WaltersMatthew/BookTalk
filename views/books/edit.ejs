@@ -3,7 +3,7 @@
 <h3>Changed your mind?</h3>
 <div class="container">
     <div class="align-items-center">
-        <form class="form-group" action="/users/results/<%=id%>/edit/<%=review.id%>/?_method=PUT" method="POST">
+        <form class="form-group" action="/books/results/<%=id%>/edit/<%=review.id%>/?_method=PUT" method="POST">
             <label for="content">Edit your review</label>
             <textarea class="form-control" name="content"></textarea>
             <input type="hidden" name="name" value="<%=review.name%>">

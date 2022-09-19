@@ -45,6 +45,7 @@ app.get('/', (req,res)=>{
 //controllers
 app.use('/users', require('./controllers/users'))
 app.use('/authors', require('./controllers/authors'))
+app.use('/books', require('./controllers/books'))
 
 //listen on a port
 app.listen(PORT, ()=> console.log(`You or your loved ones may be entitled to compensation on port ${PORT}...`))

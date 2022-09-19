@@ -5,9 +5,11 @@
         <div class="col">
             <h2>Details for author: <%=data.name%></h2>
             <p>Born: <%=data.birth_date%></p>
-            <% data.links.forEach(link =>{ %>
-                <a href="<%=link.url%>" target="_blank"><%=link.title%></a> 
-            <%})%>
+            <%if(data.links){%>
+                <% data.links.forEach(link =>{ %>
+                    <a href="<%=link.url%>" target="_blank"><%=link.title%></a> 
+                    <%})%>
+            <%}%>
             <form action="/users/profile" method="POST" class="d-flex justify-content-center" style="margin-top: 100px;">
                 <input type="hidden" value="<%=data.name%>" name="<%=data.name%>">
                 <button type="submit" class="btn btn-primary" style="padding: 35px 50px;">Add to favorites</button>
@@ -21,19 +23,25 @@
 
     <div class="row">
         <div class="col">
-            <h2>Bio:</h2> <p style="border-left: 5px solid #007bff; padding-left: 10px;"><%=data.bio%></p>
+            <%if(typeof data.bio == 'object'){%>
+                <h2>Bio:</h2> <p style="border-left: 5px solid #007bff; padding-left: 10px;"><%=data.bio.value%></p>    
+            <%}else{%>
+                <h2>Bio:</h2> <p style="border-left: 5px solid #007bff; padding-left: 10px;"><%=data.bio%></p>
+            <%}%>
         </div>
 
         <div class="col">
-            <h2>Alternate Names:</h2> 
-
-            <ul>
-                <%data.alternate_names.forEach(name =>{%>
-                    <li style="border-left: 5px solid #007bff; padding-left: 10px; list-style-type: none;">
-                        <%=name%>
-                    </li> 
-                <% }) %>
-            </ul>
+            <%if(data.alternate_names){%>
+                <h2>Alternate Names:</h2> 
+    
+                <ul>
+                    <%data.alternate_names.forEach(name =>{%>
+                        <li style="border-left: 5px solid #007bff; padding-left: 10px; list-style-type: none;">
+                            <%=name%>
+                        </li> 
+                    <% }) %>
+                </ul>
+            <%}%>
         </div>
     </div>
 </div>

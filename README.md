@@ -26,21 +26,23 @@ Author photo results <br/>
 ---
 ### Restful routing chart
 ---
+READ /books/results -- show search results
+READ /books/results/:id -- show single book result
+
+READ /authors/results --show search results
+READ /authors/results/:id -- show single author result
 
 CREATE /books/:bookId --leave a review <br/>
-CREATE /users/:userId --make new user
+CREATE /users/new --make new user
 
-READ / -- show home page with top books and authors<br/>
-READ /users --show all user accounts<br/>
-READ /users/:userId -- show a user's profile and faved books/authors<br/>
-READ /search -- call api to search list of book/author results<br/>
+READ / -- show home page with login/signup<br/>
+READ /users/profile-- show the signed in user's profile and faved books/authors<br/>
+READ /users/search -- call api to search list of book/author results<br/>
 
-UPDATE /users/:userId -- edit profile<br/>
 UPDATE /books/:bookId -- edit a review
 
-DESTROY /users/:userId -- delete profile<br/>
 DESTROY /users/:userId -- delete fave books/authors<br/>
-DESTROY /books/:bookId -- delete reviews<br/>
+
 
 
 ---
