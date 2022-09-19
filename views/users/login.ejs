@@ -1,13 +1,15 @@
-<% if (message) { %>
-    <p><%= message %></p>
-<%}%>
+<div class="container">
+    <% if (message) { %>
+        <p><%= message %></p>
+    <%}%>
 
-<form action="/users/login" method="POST">
-    <label for="email">Email:</label>
-    <input id="email" type="email" name="email" required>
+    <form class="form-group" action="/users/login" method="POST">
+        <label for="email">Email:</label>
+        <input class="form-control" id="email" type="email" name="email" required>
 
-    <label for="password">Password:</label>
-    <input type="password" name="password" id="password" required>
+        <label for="password">Password:</label>
+        <input class="form-control" type="password" name="password" id="password" required>
 
-    <button type="submit">Log in</button>
-</form>
+        <button class="btn btn-primary" type="submit">Log in</button>
+    </form>
+</div>
