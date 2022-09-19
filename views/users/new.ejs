@@ -14,13 +14,16 @@
     </div>
     <button type="submit" class="btn btn-primary">Submit</button>
   </form> -->
-
-<form action="/users" method="POST">
-    <label for="email">Email:</label>
-    <input id="email" type="email" name="email" required>
-    <label for="name">Display Name:</label>
-    <input id="name" type="text" name="name" required>
-    <label for="password">Password:</label>
-    <input type="password" name="password" id="password" required>
-    <button type="submit">Sign Up</button>
-</form>
+<div class="container">
+  <div class="form-group">
+    <form action="/users" method="POST">
+        <label for="name">Display Name:</label>
+        <input class="form-control" id="name" type="text" name="name" required>
+        <label for="email">Email:</label>
+        <input class="form-control" id="email" type="email" name="email" required>
+        <label for="password">Password:</label>
+        <input class="form-control" type="password" name="password" id="password" required>
+        <button type="submit" class="btn btn-primary">Sign Up</button>
+    </form>
+  </div>
+</div>
