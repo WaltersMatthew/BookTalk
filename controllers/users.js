@@ -102,10 +102,14 @@ router.get('/profile', async (req,res)=>{
             res.redirect('/users/login?message=You must authenticate before you are authorized to view this resource.')
         }else{
             const books = await db.book.findAll({
-                where: {userId: 1}
+                where: {userId: res.locals.user.id}
+            })
+            const authors = await db.author.findAll({
+                where: {userId: res.locals.user.id}
             })
             res.render('users/profile.ejs', {
                 books: books,
+                authors: authors,
                 user: res.locals.user
             })
         }
@@ -170,10 +174,10 @@ router.get('/results/:id', async (req,res)=>{
 //author api call
 router.post('/results/authors', async (req,res)=>{
     try {
-        const response = await axios.get(`http://openlibrary.org/authors.json?q=${req.body.author}`)
-        // console.log(response.data)
-        // res.render('authors/results.ejs', {results: response.data.docs})
-        res.send('poop')
+        const response = await axios.get(`https://openlibrary.org/search/authors.json?q=${req.body.author}`)
+        console.log(response.data)
+        res.render('authors/results.ejs', {results: response.data.docs})
+
     } catch (error) {
         console.log(error)
         res.send('hi bud')
@@ -184,15 +188,14 @@ router.post('/results/authors', async (req,res)=>{
 // route to show page for AUTHORS
 router.get('/results/authors/:id', async (req,res)=>{
     const response = await axios.get(`https://openlibrary.org/authors/${req.params.id}.json`)
-    // console.log(response.data)
     res.render('authors/show.ejs', {data : response.data})
 })
 
 //CREATE book favorite on button click
 router.post('/profile', async (req,res)=>{
     try{
-        // console.log(req.body.libraryId)
         //create new favorite book
+        console.log(req.params.id)
         await db.book.findOrCreate({
             where:{
                 title: req.body.title,
@@ -208,6 +211,22 @@ router.post('/profile', async (req,res)=>{
     }
 })
 
+//create author favorite on button click
+router.post('/profile', async (req,res)=>{
+    try{
+        //create new favorite author
+        await db.author.create({
+            where:{
+                name: req.body.name,
+                userId: res.locals.user.id,
+            }
+        })
+    res.redirect('/users/profile')
+    }catch(err){
+        res.send('npoe nope')
+        console.log(err)
+    }
+})
 
 //Delete a book from favorites on profile
 router.delete('/profile/:id', async (req,res)=>{

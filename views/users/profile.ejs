@@ -1,26 +1,60 @@
 <h2 style="text-align: center;"><u> <%=user.name%>'s favorite books 📚</u></h2>
 
 <div class="container d-flex align-items-center">
-    <% books.forEach(book =>{ %>
-        <%const array = book.libraryId.split("/")%>
-        <%const id = array[array.length -1]%>
-    
-        <div class="card justify-content-center flex-wrap" style="margin-top: 25px; width: 33%; height: 500px; display: inline-block;" >
-            <img src="<%=book.img_url%>" class="card-img-top" style="height: 330px;" alt="<%=book.title%>">
-            
-            <div class="card-body" >
-                <p class="card-title" style="text-align: center;"><strong><%=book.title%></strong></p>  
-                <div>
-                    <div class="d-flex justify-content-center align-items-end">
-                        <a href="/users/results/<%=id%>" class="btn btn-primary">See details</a>    
-                    </div>
-                    <div class="d-flex justify-content-center align-items-end">
-                        <form action="/users/profile/<%=book.title%>/?_method=DELETE" method="POST">
-                        <button type="submit" class="btn btn-primary">Delete</button>
-                        </form>
+    <div class="row">
+        <% books.forEach(book =>{ %>
+            <%const bookArray = book.libraryId.split("/")%>
+            <%const bookId = bookArray[bookArray.length -1]%>
+        
+            <div class="card justify-content-center flex-wrap" style="margin-top: 25px; width: 33%; height: 500px; display: inline-block;" >
+                <img src="<%=book.img_url%>" class="card-img-top" style="height: 330px;" alt="<%=book.title%>">
+                
+                <div class="card-body" >
+                    <p class="card-title" style="text-align: center;"><strong><%=book.title%></strong></p>  
+                    <div>
+                        <div class="d-flex justify-content-center align-items-end">
+                            <a href="/users/results/<%=bookId%>" class="btn btn-primary">See details</a>    
+                        </div>
+                        
+                        <div class="d-flex justify-content-center align-items-end">
+                            <form action="/users/profile/<%=book.title%>/?_method=DELETE" method="POST">
+                                <button type="submit" class="btn btn-primary">Delete</button>
+                            </form>
+                        </div>
                     </div>
                 </div>
             </div>
-        </div>
-    <% }) %>
+        <% }) %>
+    </div>
+</div>
+
+<h2 style="text-align: center;"><u> <%=user.name%>'s favorite authors ✍️</u></h2>
+
+<div class="container d-flex align-items-center">
+    <div class="row">
+        
+        <% authors.forEach(author =>{%>
+            <%const authorArray = author.key.split("/")%>
+            <%const authorId = authorArray[authorArray.length -1]%>
+
+            <div class="card justify-content-center flex-wrap" style="margin-top: 25px; width: 33%; height: 500px; display: inline-block;" >
+                <img src="https://covers.openlibrary.org/a/olid/<%= authorId %>-L.jpg" class="card-img-top" style="height: 330px;" alt="<%=author.name%>">
+                
+                <div class="card-body" >
+                    <p class="card-title" style="text-align: center;"><strong><%=author.name%></strong></p>  
+                    <div>
+                        <div class="d-flex justify-content-center align-items-end">
+                            <a href="/users/results/authors/<%= authorId %>" class="btn btn-primary">See details</a>    
+                        </div>
+
+                        <div class="d-flex justify-content-center align-items-end">
+                            <form action="/users/profile/<%= author.name %>/?_method=DELETE" method="POST">
+                                <button type="submit" class="btn btn-primary">Delete</button>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        <%})%>
+    </div>
 </div>

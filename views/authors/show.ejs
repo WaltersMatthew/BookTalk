@@ -1,0 +1,39 @@
+<%const array = data.key.split("/")%>
+<%const id = array[array.length -1]%>
+<div class="container">
+    <div class="row" style="margin: 20px 0;">
+        <div class="col">
+            <h2>Details for author: <%=data.name%></h2>
+            <p>Born: <%=data.birth_date%></p>
+            <% data.links.forEach(link =>{ %>
+                <a href="<%=link.url%>"><%=link.title%></a> 
+            <%})%>
+            <form action="/users/profile" method="POST" class="d-flex justify-content-center" style="margin-top: 100px;">
+                <input type="hidden" value="<%=data.name%>" name="<%=data.name%>">
+                <button type="submit" class="btn btn-primary d-flex" style="padding: 35px 50px;">Add to favorites</button>
+            </form>
+        </div>
+        
+        <div class="col">
+            <img src="https://covers.openlibrary.org/a/olid/<%=id%>-L.jpg" class="rounded" style="padding-left: 10px;" alt="Photo of <%=data.name%>">
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col">
+            <h2>Bio:</h2> <p style="border-left: 5px solid #007bff; padding-left: 10px;"><%=data.bio%></p>
+        </div>
+
+        <div class="col">
+            <h2>Alternate Names:</h2> 
+
+            <ul>
+                <%data.alternate_names.forEach(name =>{%>
+                    <li style="border-left: 5px solid #007bff; padding-left: 10px; list-style-type: none;">
+                        <%=name%>
+                    </li> 
+                <% }) %>
+            </ul>
+        </div>
+    </div>
+</div>
