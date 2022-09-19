@@ -31,8 +31,7 @@
 <h2 style="text-align: center;"><u> <%=user.name%>'s favorite authors ✍️</u></h2>
 
 <div class="container d-flex align-items-center">
-    <div class="row">
-        
+    <div class="row">        
         <% authors.forEach(author =>{%>
             <%const authorArray = author.key.split("/")%>
             <%const authorId = authorArray[authorArray.length -1]%>
