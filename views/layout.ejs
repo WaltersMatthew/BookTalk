@@ -8,8 +8,17 @@
         <title>BookTalk</title>
     </head>
     <body>
+        <style>
+            body{
+                background-color: rgb(255, 254, 224);
+            }
+            li{
+                background-color: rgba(255, 254, 224, 0.7);
+                border-radius: 10px;
+            }
+        </style>
         <nav>
-            <img src="https://www.wpbstv.org/skins/pbs/media/booktalk/book-talk-web-logo.jpg" height=100 class="nav justify-content-start" style="display: inline;">
+            <img src="https://www.wpbstv.org/skins/pbs/media/booktalk/book-talk-web-logo.jpg" height=100 class="nav justify-content-start">
 
             <ul class="nav justify-content-end">
                 <% if(user) { %>
@@ -34,32 +43,6 @@
                     <% } %>
             </ul>
         </nav>
-            <!-- if the user is logged in -->
-            <!--            
-            <ul>
-                <li>
-                    <a href="/users/profile">Profile</a>
-                </li>
-
-                <li>
-                    <a href="/users/logout">Log out</a>
-                </li>
-
-                <li>
-                    <a href="/users/search">Search books</a>
-                </li>
-           
-                <li>
-                    <a href="/users/new">Sign Up</a>
-                </li>
-                    
-                <li>
-                    <a href="/users/login">Log in</a>
-                </li>
-            </ul> -->
-    
-
-
     <%- body %>
 </body>
 </html>

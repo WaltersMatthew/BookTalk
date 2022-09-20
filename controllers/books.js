@@ -8,7 +8,12 @@ router.post('/results', async (req,res)=>{
     try{
         const response = await axios.get(`http://openlibrary.org/search.json?title=${req.body.book}`) // interpolate search into url  
         console.log(response.data)
-        res.render('books/results.ejs', {results: response.data.docs, searchParams: req.body.book} )
+
+        res.render('books/results.ejs', {
+            //need search params to display on results page
+            results: response.data.docs, 
+            searchParams: req.body.book
+        })
     } catch(err){
         console.log(err)
         res.render('404.ejs')
@@ -22,14 +27,13 @@ router.get('/results/:id', async (req,res)=>{
          // call for book details
         const detailResponse = await axios.get(`https://openlibrary.org/works/${req.params.id}`)
         const authorResponse = await axios.get(`https://openlibrary.org/authors/${req.params.id}.json`)
-        // console.log(authorGrab.data)
         //send to show page
         const reviews = await db.review.findAll({
             where: {
                 bookId: req.params.id
             }
         })
-        console.log(res.locals.user.dataValues.id)
+        //send all necessary model data to display
         res.render('books/show.ejs', {
             data : detailResponse.data,
             authorData : authorResponse.data.docs,
@@ -45,7 +49,6 @@ router.get('/results/:id', async (req,res)=>{
 router.post('/favorites', async (req,res)=>{
     try{
         //create new favorite book
-        console.log(req.params.id)
         await db.book.findOrCreate({
             where:{
                 title: req.body.title,
@@ -79,12 +82,14 @@ router.delete('/:id', async (req,res)=>{
 router.post('/results/:id', async (req,res)=>{
     console.log(res.locals.user)
     try{
+        // comment columns
         const newComment = await db.review.create({
             userId: res.locals.user.dataValues.id,
             name: res.locals.user.dataValues.name,
             content: req.body.content,
             bookId: req.body.id
         })
+        //get all book and review info to display on show page
         const response = await axios.get(`https://openlibrary.org/works/${req.params.id}`)
         const reviews = await db.review.findAll({
             where: {
@@ -111,7 +116,7 @@ router.get('/results/:bookid/edit/:id', async (req,res)=>{
                 userId: res.locals.user.id
             }
         })
-        console.log("*******CONSOLE LOG*******", review)
+        //api call to use response data
         const response = await axios.get(`https://openlibrary.org/works/${req.params.bookid}`)  
         res.render('books/edit.ejs', {
             review: review,
@@ -122,6 +127,7 @@ router.get('/results/:bookid/edit/:id', async (req,res)=>{
         res.render('404.ejs')
     }
 })
+
 // edit comment in db
 router.put('/results/:bookid/edit/:id', async (req,res)=>{
     try {

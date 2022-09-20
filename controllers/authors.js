@@ -7,7 +7,11 @@ const axios = require('axios')
 router.post('/results', async (req,res)=>{
     try {
         const response = await axios.get(`https://openlibrary.org/search/authors.json?q=${req.body.author}`)
-        res.render('authors/results.ejs', {results: response.data.docs, searchParams: req.body.author})
+        res.render('authors/results.ejs', {
+            //send data along to display on results page
+            results: response.data.docs, 
+            searchParams: req.body.author
+        })
     } catch (error) {
         console.log(error)
         res.render('404.ejs')
@@ -25,9 +29,9 @@ router.get('/results/:id', async (req,res)=>{
 router.post('/favorites', async (req,res)=>{
     try{
         //create new favorite author
-        console.log("*******CONSOLE LOG**********",res.locals.user.id, req.body.name)
         await db.author.create({
                 name: req.body.name,
+                //authorId is formatted "/authors/OLXXXX"
                 authorId: req.body.authorId,
                 userId: res.locals.user.id,
         })
@@ -38,11 +42,11 @@ router.post('/favorites', async (req,res)=>{
     }
 })
 
-//Delete author  fave on click
+//Delete author fave on click
 router.delete('/:id', async (req,res)=>{
     try{
-        console.log("%%%%%%%CONOSOLE LOG%%%%%%%%%%", req.params.id)
         await db.author.destroy({
+            //author id is "/authors/OLXXXXX" DO NOT CHANGE!!
             where: {authorId: `/authors/${req.params.id}`}
         })
         res.redirect('/users/profile')

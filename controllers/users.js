@@ -101,12 +101,15 @@ router.get('/profile', async (req,res)=>{
         if(!res.locals.user){
             res.redirect('/users/login?message=You must authenticate before you are authorized to view this resource.')
         }else{
+            //get books
             const books = await db.book.findAll({
                 where: {userId: res.locals.user.id}
             })
+            //get authors
             const authors = await db.author.findAll({
                 where: {userId: res.locals.user.id}
             })
+            //send data to display
             res.render('users/profile.ejs', {
                 books: books,
                 authors: authors,
@@ -123,190 +126,5 @@ router.get('/profile', async (req,res)=>{
 router.get('/search', (req,res)=>{
     res.render('users/search.ejs')
 })
-
-
-
-// //Hit book api with search result
-// router.post('/results', (req,res)=>{
-//         const url = `http://openlibrary.org/search.json?title=${req.body.book}` // interpolate search into url  
-//     // } else if (req.body.author){//if author search
-//     //     url = `https://openlibrary.org/search/authors.json?q=${req.body.author}`
-//     console.log(url)
-//     axios.get(url)
-//         .then(response=>{
-//             // console.log(response.data.docs)
-//             if(response.data){
-//                 res.render('books/results.ejs', {results: response.data.docs, searchParams: req.body.book} )
-//             }else{
-//                 res.send('server error')
-//             }
-//         }).catch(err =>{
-//             console.log(err)
-//             res.render('404.ejs')
-//         })
-// })
-
-
-// //Going to show page with details on selected book
-// router.get('/results/:id', async (req,res)=>{
-//     try{
-//          // call for book details
-//         const detailResponse = await axios.get(`https://openlibrary.org/works/${req.params.id}`)
-//         const authorResponse = await axios.get(`https://openlibrary.org/authors/${req.params.id}.json`)
-//         // console.log(authorGrab.data)
-//         //send to show page
-//         const reviews = await db.review.findAll({
-//             where: {
-//                 bookId: req.params.id
-//             }
-//         })
-//         console.log(res.locals.user.dataValues.id)
-//         res.render('books/show.ejs', {
-//             data : detailResponse.data,
-//             authorData : authorResponse.data.docs,
-//             reviews: reviews
-//         })
-//     }catch(err){
-//             console.log(err)
-//             res.render('404.ejs')
-//     }
-// })
-
-// // author api call
-// router.post('/results/authors', async (req,res)=>{
-//     try {
-//         const response = await axios.get(`https://openlibrary.org/search/authors.json?q=${req.body.author}`)
-//         console.log(response.data)
-//         res.render('authors/results.ejs', {results: response.data.docs})
-
-//     } catch (error) {
-//         console.log(error)
-//         res.render('404.ejs')
-//     }
-// })
-
-
-// // route to show page for AUTHORS
-// router.get('/results/authors/:id', async (req,res)=>{
-//     const response = await axios.get(`https://openlibrary.org/authors/${req.params.id}.json`)
-//     res.render('authors/show.ejs', {data : response.data})
-// })
-
-// // CREATE book favorite on button click
-// router.post('/profile', async (req,res)=>{
-//     try{
-//         //create new favorite book
-//         console.log(req.params.id)
-//         await db.book.findOrCreate({
-//             where:{
-//                 title: req.body.title,
-//                 img_url: req.body.img_url,
-//                 userId: res.locals.user.id,
-//                 libraryId: req.body.libraryId
-//             }
-//         })
-//     res.redirect('/users/profile')
-//     }catch(err){
-//         res.render('404.ejs')
-//         console.log(err)
-//     }
-// })
-
-// // create author favorite on button click
-// router.post('/profile', async (req,res)=>{
-//     try{
-//         //create new favorite author
-//         await db.author.create({
-//             where:{
-//                 name: req.body.name,
-//                 userId: res.locals.user.id,
-//             }
-//         })
-//     res.redirect('/users/profile')
-//     }catch(err){
-//         res.render('404.ejs')
-//         console.log(err)
-//     }
-// })
-
-// //Delete a book from favorites on profile
-// router.delete('/profile/:id', async (req,res)=>{
-//     try{
-//         await db.book.destroy({
-//             where: {title: req.params.id}
-//         })
-//         res.redirect('/users/profile')
-//     }catch(err){
-//         console.log(err)
-//         res.render('404.ejs')
-//     }
-
-// })
-
-// //create new comment
-// router.post('/results/:id', async (req,res)=>{
-//     console.log(res.locals.user)
-//     try{
-//         const newComment = await db.review.create({
-//             userId: res.locals.user.dataValues.id,
-//             name: req.body.name,
-//             content: req.body.content,
-//             bookId: req.body.id
-//         })
-//         const response = await axios.get(`https://openlibrary.org/works/${req.params.id}`)
-//         const reviews = await db.review.findAll({
-//             where: {
-//                 bookId: req.params.id
-//             }
-//         })
-//         res.render('books/show.ejs', {
-//             data : response.data,
-//             reviews: reviews
-//         })
-//     }catch(err){
-//         console.log(err)
-//         res.render('404.ejs')
-//     }
-// })
-// // find comment to edit
-// router.get('/results/:bookid/edit/:id', async (req,res)=>{
-//     try {
-//         const review = await db.review.findOne({
-//             where:{
-//                 bookId: req.params.bookid,
-//                 name: res.locals.user.name
-//             }
-//         })
-//         const response = await axios.get(`https://openlibrary.org/works/${req.params.bookid}`)  
-//         res.render('books/edit.ejs', {
-//             review: review,
-//             data: response.data
-//         })
-//     } catch (error) {
-//         console.log(error)
-//         res.render('404.ejs')
-//     }
-// })
-// // edit comment in db
-// router.put('/results/:bookid/edit/:id', async (req,res)=>{
-//     try {
-//         const review = await db.review.update({
-//             bookId: req.body.bookId,
-//             userId: res.locals.user.id,
-//             name: req.body.name,
-//             content: req.body.content
-//         },{
-//         where: {
-//             id: req.params.id
-//         }
-//         })
-//         const response = await axios.get(`https://openlibrary.org/works/${req.params.bookid}`)   
-//         res.redirect(`/users/results/${req.params.bookid}`)
-//     } catch (error) {
-//         console.log(error)
-//         res.render('404.ejs')
-//     }
-// })
-
 
 module.exports = router
