@@ -11,7 +11,8 @@
                     <%})%>
             <%}%>
             <form action="/authors/favorites" method="POST" class="d-flex justify-content-center" style="margin-top: 100px;">
-                <input type="hidden" value="<%=data.key%>" name="name">
+                <input type="hidden" value="<%=data.key%>" name="authorId">
+                <input type="hidden" value="<%=data.name%>" name="name">
                 <button type="submit" class="btn btn-primary" style="padding: 35px 50px;">Add to favorites</button>
             </form>
         </div>

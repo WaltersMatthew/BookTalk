@@ -61,19 +61,19 @@ router.post('/favorites', async (req,res)=>{
     }
 })
 
-// //Delete a book from favorites on profile
-// router.delete('/profile/:id', async (req,res)=>{
-//     try{
-//         await db.book.destroy({
-//             where: {title: req.params.id}
-//         })
-//         res.redirect('/users/profile')
-//     }catch(err){
-//         console.log(err)
-//         res.render('404.ejs')
-//     }
+//Delete a book from favorites on profile
+router.delete('/:id', async (req,res)=>{
+    try{
+        await db.book.destroy({
+            where: {title: req.params.id}
+        })
+        res.redirect('/users/profile')
+    }catch(err){
+        console.log(err)
+        res.render('404.ejs')
+    }
 
-// })
+})
 
 //create new comment
 router.post('/results/:id', async (req,res)=>{

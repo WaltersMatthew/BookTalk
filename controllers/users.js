@@ -172,25 +172,25 @@ router.get('/search', (req,res)=>{
 //     }
 // })
 
-// author api call
-router.post('/results/authors', async (req,res)=>{
-    try {
-        const response = await axios.get(`https://openlibrary.org/search/authors.json?q=${req.body.author}`)
-        console.log(response.data)
-        res.render('authors/results.ejs', {results: response.data.docs})
+// // author api call
+// router.post('/results/authors', async (req,res)=>{
+//     try {
+//         const response = await axios.get(`https://openlibrary.org/search/authors.json?q=${req.body.author}`)
+//         console.log(response.data)
+//         res.render('authors/results.ejs', {results: response.data.docs})
 
-    } catch (error) {
-        console.log(error)
-        res.render('404.ejs')
-    }
-})
+//     } catch (error) {
+//         console.log(error)
+//         res.render('404.ejs')
+//     }
+// })
 
 
-// route to show page for AUTHORS
-router.get('/results/authors/:id', async (req,res)=>{
-    const response = await axios.get(`https://openlibrary.org/authors/${req.params.id}.json`)
-    res.render('authors/show.ejs', {data : response.data})
-})
+// // route to show page for AUTHORS
+// router.get('/results/authors/:id', async (req,res)=>{
+//     const response = await axios.get(`https://openlibrary.org/authors/${req.params.id}.json`)
+//     res.render('authors/show.ejs', {data : response.data})
+// })
 
 // // CREATE book favorite on button click
 // router.post('/profile', async (req,res)=>{
@@ -229,19 +229,19 @@ router.get('/results/authors/:id', async (req,res)=>{
 //     }
 // })
 
-//Delete a book from favorites on profile
-router.delete('/profile/:id', async (req,res)=>{
-    try{
-        await db.book.destroy({
-            where: {title: req.params.id}
-        })
-        res.redirect('/users/profile')
-    }catch(err){
-        console.log(err)
-        res.render('404.ejs')
-    }
+// //Delete a book from favorites on profile
+// router.delete('/profile/:id', async (req,res)=>{
+//     try{
+//         await db.book.destroy({
+//             where: {title: req.params.id}
+//         })
+//         res.redirect('/users/profile')
+//     }catch(err){
+//         console.log(err)
+//         res.render('404.ejs')
+//     }
 
-})
+// })
 
 // //create new comment
 // router.post('/results/:id', async (req,res)=>{

@@ -1,6 +1,12 @@
-<h2 style="text-align: center;"><u> <%=user.name%>'s favorite books 📚</u></h2>
 
-<div class="container d-flex align-items-center">
+    <%if(!books.length){%>
+        <p></p>
+    <%}else{%>
+        <h2 style="text-align: center;"><u> <%=user.name%>'s favorite books 📚</u></h2>
+    <%}%>
+
+
+<div class="container  align-items-center">
     <div class="row">
         <%if(!books.length){%>
             <h1>Add some books to your favorites to start your profile!</h1>
@@ -18,9 +24,9 @@
                             <div class="d-flex justify-content-center align-items-end">
                                 <a href="/books/results/<%=bookId%>" class="btn btn-primary">See details</a>    
                             </div>
-                            
+                            <!-- DELETE BOOK FORM -->
                             <div class="d-flex justify-content-center align-items-end">
-                                <form action="/users/profile/<%=book.title%>/?_method=DELETE" method="POST">
+                                <form action="/books/<%=book.title%>/?_method=DELETE" method="POST">
                                     <button type="submit" class="btn btn-primary">Delete</button>
                                 </form>
                             </div>
@@ -37,24 +43,24 @@
 
     <h2 style="text-align: center;"><u> <%=user.name%>'s favorite authors ✍️</u></h2>
     
-    <div class="container d-flex align-items-center">
+    <div class="container align-items-center">
         <div class="row">        
             <% authors.forEach(author =>{%>
-                <%const authorArray = author.name.split("/")%>
-                <%const authorId = authorArray[authorArray.length -1]%>
+                <%const authorArray = author.authorId.split("/")%>
+                <%const authorKey = authorArray[authorArray.length -1]%>
                 
                 <div class="card justify-content-center flex-wrap" style="margin-top: 25px; width: 33%; height: 500px; display: inline-block;" >
-                    <img src="https://covers.openlibrary.org/a/olid/<%= authorId %>-L.jpg" class="card-img-top" style="height: 330px;" alt="<%=author.name%>">
+                    <img src="https://covers.openlibrary.org/a/olid/<%= authorKey %>-L.jpg" class="card-img-top" style="height: 330px;" alt="<%=author.name%>">
                     
                     <div class="card-body" >
                         <p class="card-title" style="text-align: center;"><strong><%=author.name%></strong></p>  
                         <div>
                             <div class="d-flex justify-content-center align-items-end">
-                                <a href="/authors/results/<%= authorId %>" class="btn btn-primary">See details</a>    
+                                <a href="/authors/results/<%= authorKey %>" class="btn btn-primary">See details</a>    
                             </div>
-                            
+                            <!-- DELETE AUTHORS FORM -->
                             <div class="d-flex justify-content-center align-items-end">
-                                <form action="/users/profile/<%= author.name %>/?_method=DELETE" method="POST">
+                                <form action="<%= author.authorId %>/?_method=DELETE" method="POST">
                                     <button type="submit" class="btn btn-primary">Delete</button>
                                 </form>
                             </div>

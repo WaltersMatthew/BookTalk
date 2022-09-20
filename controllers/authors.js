@@ -7,7 +7,7 @@ const axios = require('axios')
 router.post('/results', async (req,res)=>{
     try {
         const response = await axios.get(`https://openlibrary.org/search/authors.json?q=${req.body.author}`)
-        res.render('authors/results.ejs', {results: response.data.docs})
+        res.render('authors/results.ejs', {results: response.data.docs, searchParams: req.body.author})
     } catch (error) {
         console.log(error)
         res.render('404.ejs')
@@ -28,6 +28,7 @@ router.post('/favorites', async (req,res)=>{
         console.log("*******CONSOLE LOG**********",res.locals.user.id, req.body.name)
         await db.author.create({
                 name: req.body.name,
+                authorId: req.body.authorId,
                 userId: res.locals.user.id,
         })
     res.redirect('/users/profile')
@@ -37,5 +38,18 @@ router.post('/favorites', async (req,res)=>{
     }
 })
 
+//Delete author  fave on click
+router.delete('/:id', async (req,res)=>{
+    try{
+        console.log("%%%%%%%CONOSOLE LOG%%%%%%%%%%", req.params.id)
+        await db.author.destroy({
+            where: {authorId: `/authors/${req.params.id}`}
+        })
+        res.redirect('/users/profile')
+    }catch(err){
+        console.log(err)
+        res.render('404.ejs')
+    }
 
+})
 module.exports = router
