@@ -40,7 +40,7 @@
     <div class="container d-flex align-items-center">
         <div class="row">        
             <% authors.forEach(author =>{%>
-                <%const authorArray = author.key.split("/")%>
+                <%const authorArray = author.name.split("/")%>
                 <%const authorId = authorArray[authorArray.length -1]%>
                 
                 <div class="card justify-content-center flex-wrap" style="margin-top: 25px; width: 33%; height: 500px; display: inline-block;" >

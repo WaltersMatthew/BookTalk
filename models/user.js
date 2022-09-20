@@ -11,7 +11,7 @@ module.exports = (sequelize, DataTypes) => {
      */
     static associate(models) {
       // define association here
-      models.article.hasMany(models.book)
+      models.user.hasMany(models.book)
     }
   }
   user.init({

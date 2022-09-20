@@ -192,25 +192,25 @@ router.get('/results/authors/:id', async (req,res)=>{
     res.render('authors/show.ejs', {data : response.data})
 })
 
-// CREATE book favorite on button click
-router.post('/profile', async (req,res)=>{
-    try{
-        //create new favorite book
-        console.log(req.params.id)
-        await db.book.findOrCreate({
-            where:{
-                title: req.body.title,
-                img_url: req.body.img_url,
-                userId: res.locals.user.id,
-                libraryId: req.body.libraryId
-            }
-        })
-    res.redirect('/users/profile')
-    }catch(err){
-        res.render('404.ejs')
-        console.log(err)
-    }
-})
+// // CREATE book favorite on button click
+// router.post('/profile', async (req,res)=>{
+//     try{
+//         //create new favorite book
+//         console.log(req.params.id)
+//         await db.book.findOrCreate({
+//             where:{
+//                 title: req.body.title,
+//                 img_url: req.body.img_url,
+//                 userId: res.locals.user.id,
+//                 libraryId: req.body.libraryId
+//             }
+//         })
+//     res.redirect('/users/profile')
+//     }catch(err){
+//         res.render('404.ejs')
+//         console.log(err)
+//     }
+// })
 
 // // create author favorite on button click
 // router.post('/profile', async (req,res)=>{

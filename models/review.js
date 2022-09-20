@@ -11,7 +11,7 @@ module.exports = (sequelize, DataTypes) => {
      */
     static associate(models) {
       // define association here
-      models.article.belongsTo(models.book)
+      models.review.belongsTo(models.book)
 
     }
   }

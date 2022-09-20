@@ -42,7 +42,7 @@ router.get('/results/:id', async (req,res)=>{
 })
 
 //CREATE book favorite on button click
-router.post('users/profile', async (req,res)=>{
+router.post('/favorites', async (req,res)=>{
     try{
         //create new favorite book
         console.log(req.params.id)

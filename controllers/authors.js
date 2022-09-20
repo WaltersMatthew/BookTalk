@@ -7,9 +7,7 @@ const axios = require('axios')
 router.post('/results', async (req,res)=>{
     try {
         const response = await axios.get(`https://openlibrary.org/search/authors.json?q=${req.body.author}`)
-        console.log(response.data)
         res.render('authors/results.ejs', {results: response.data.docs})
-
     } catch (error) {
         console.log(error)
         res.render('404.ejs')
@@ -24,14 +22,13 @@ router.get('/results/:id', async (req,res)=>{
 })
 
 //create favorite on click
-router.post('/users/profile', async (req,res)=>{
+router.post('/favorites', async (req,res)=>{
     try{
         //create new favorite author
+        console.log("*******CONSOLE LOG**********",res.locals.user.id, req.body.name)
         await db.author.create({
-            where:{
                 name: req.body.name,
                 userId: res.locals.user.id,
-            }
         })
     res.redirect('/users/profile')
     }catch(err){
