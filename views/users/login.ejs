@@ -14,13 +14,18 @@
         width: 33%;
         padding: 20px;
     }
+    p{
+        background-color: rgba(255,255,255,0.7); border-radius: 10px; 
+        padding: 20px;
+        text-align: center;
+    }
 </style>
 
 <div class="container d-flex justify-content-center">
-    <% if (message) { %>
-        <p><%= message %></p>
-    <%}%>
     <div class="form-floating mb-3">
+        <% if (message) { %>
+            <p><%= message %></p>
+        <%}%>
         <form class="form-group" action="/users/login" method="POST">
             <label for="email">Email:</label>
             <input class="form-control" id="email" type="email" name="email" placeholder="name@example.com" required>

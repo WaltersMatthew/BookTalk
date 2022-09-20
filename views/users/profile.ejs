@@ -6,26 +6,57 @@
     <%}%>
 
 
-<div class="container  align-items-center">
-    <div class="row">
+<div class="container d-flex justify-content-center">
+    <div class="row justify-content-center">
         <%if(!books.length){%>
-            <h1>Add some books to your favorites to start your profile!</h1>
+            <div class="form-group">
+                <h1>Add some books to your favorites to start your profile!</h1>
+                <form action="/books/results" method="POST">
+                    <label for="book">Search Books:</label>
+                    <input class="form-control" type="text" name="book" id="book">
+                    <button class="btn btn-primary" type="submit">Accio books!</button>
+                </form>
+                
+                <form action="/authors/results" method="POST">
+                    <label for="author">Search authors:</label>
+                    <input class="form-control" type="text" name="author" id="author">
+                    <button class="btn btn-primary" type="submit">Accio authors!</button>
+                </form>
+            </div>
+            <style>
+                body{
+                    background-image: url("https://media.cntraveler.com/photos/5e73966ddf86d5000910707f/master/w_2580%2Cc_limit/George%2520Peabody%2520Library%2520E665TT.jpg");
+                    background-attachment: fixed;
+                    background-position: center;
+                    background-repeat: no-repeat;
+                    background-size: cover;
+                }
+                .form-group{
+                    background-color: rgba(255,255,255,0.7); border-radius: 10px; 
+                    width: 66%;
+                    padding: 20px;
+                }
+                h1{
+                    text-align: center;
+                }
+            </style>
             <%}else{%>
             <% books.forEach(book =>{ %>
                 <%const bookArray = book.libraryId.split("/")%>
                 <%const bookId = bookArray[bookArray.length -1]%>
                 
-                <div class="card justify-content-center flex-wrap" style="margin-top: 25px; width: 33%; height: 500px; display: inline-block;" >
+                <div class="card justify-content-center flex-wrap" style="margin-top: 25px; height: 550px; width: 250px; display: inline-block;" >
                     <img src="<%=book.img_url%>" class="card-img-top" style="height: 330px;" alt="<%=book.title%>">
                     
                     <div class="card-body" >
                         <p class="card-title" style="text-align: center;"><strong><%=book.title%></strong></p>  
-                        <div>
-                            <div class="d-flex justify-content-center align-items-end">
+                        <div class="align-items-end">
+                            <!-- more info link -->
+                            <div class="d-flex justify-content-center align-items-baseline">
                                 <a href="/books/results/<%=bookId%>" class="btn btn-primary">See details</a>    
                             </div>
                             <!-- DELETE BOOK FORM -->
-                            <div class="d-flex justify-content-center align-items-end">
+                            <div class="d-flex justify-content-center align-items-baseline">
                                 <form action="/books/<%=book.title%>/?_method=DELETE" method="POST">
                                     <button type="submit" class="btn btn-primary">Delete</button>
                                 </form>
@@ -37,6 +68,8 @@
             </div>
         </div>
         <%}%>
+
+        <!-- IF FAVORITED AUTHORS -->
 <% if(!authors.length){%>
     <p></p>
 <%} else{ %>
@@ -49,7 +82,7 @@
                 <%const authorArray = author.authorId.split("/")%>
                 <%const authorKey = authorArray[authorArray.length -1]%>
                 
-                <div class="card justify-content-center flex-wrap" style="margin-top: 25px; width: 33%; height: 500px; display: inline-block;" >
+                <div class="card justify-content-center flex-wrap" style="margin-top: 25px; width: 250px; height: 500px; display: inline-block;" >
                     <img src="https://covers.openlibrary.org/a/olid/<%= authorKey %>-L.jpg" class="card-img-top" style="height: 330px;" alt="<%=author.name%>">
                     
                     <div class="card-body" >

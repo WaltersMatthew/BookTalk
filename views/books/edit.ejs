@@ -1,9 +1,26 @@
+<style>
+    body{
+        background-image: url("https://media.cntraveler.com/photos/5e73966ddf86d5000910707f/master/w_2580%2Cc_limit/George%2520Peabody%2520Library%2520E665TT.jpg");
+        background-attachment: fixed;
+        background-position: center;
+        background-repeat: no-repeat;
+        background-size: cover;
+    }
+    .container{
+    margin-top: 100px;
+    }
+    .form-group{
+        background-color: rgba(255,255,255,0.7); border-radius: 10px; 
+        width: 33%;
+        padding: 20px;
+    }
+</style>
 <%const array = data.key.split("/")%>
 <%const id = array[array.length -1]%>
-<h3>Changed your mind?</h3>
 <div class="container">
-    <div class="align-items-center">
+    <div class="d-flex justify-content-center">
         <form class="form-group" action="/books/results/<%=id%>/edit/<%=review.id%>/?_method=PUT" method="POST">
+            <h3>Changed your mind?</h3>
             <label for="content">Edit your review</label>
             <textarea class="form-control" name="content"></textarea>
             <input type="hidden" name="name" value="<%=review.name%>">
