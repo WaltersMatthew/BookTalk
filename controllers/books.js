@@ -41,25 +41,25 @@ router.get('/results/:id', async (req,res)=>{
     }
 })
 
-// //CREATE book favorite on button click
-// router.post('/profile', async (req,res)=>{
-//     try{
-//         //create new favorite book
-//         console.log(req.params.id)
-//         await db.book.findOrCreate({
-//             where:{
-//                 title: req.body.title,
-//                 img_url: req.body.img_url,
-//                 userId: res.locals.user.id,
-//                 libraryId: req.body.libraryId
-//             }
-//         })
-//     res.redirect('/users/profile')
-//     }catch(err){
-//         res.render('404.ejs')
-//         console.log(err)
-//     }
-// })
+//CREATE book favorite on button click
+router.post('users/profile', async (req,res)=>{
+    try{
+        //create new favorite book
+        console.log(req.params.id)
+        await db.book.findOrCreate({
+            where:{
+                title: req.body.title,
+                img_url: req.body.img_url,
+                userId: res.locals.user.id,
+                libraryId: req.body.libraryId
+            }
+        })
+    res.redirect('/users/profile')
+    }catch(err){
+        res.render('404.ejs')
+        console.log(err)
+    }
+})
 
 // //Delete a book from favorites on profile
 // router.delete('/profile/:id', async (req,res)=>{
