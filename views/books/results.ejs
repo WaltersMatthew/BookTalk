@@ -9,8 +9,6 @@
                 <%const array = result.key.split("/")%>
                 <%const id = array[array.length -1]%>
                 <li class="list-group-item">
-                    <!-- if doing book search, display these results
-                     -->
                     <% if(result.cover_i){ %>
                         <img style="margin-left: 10px; float: left;" class="img-thumbnail" src="https://covers.openlibrary.org/b/id/<%= result.cover_i %>-S.jpg" alt="<%= result.title %>">
                     <%}%>
