@@ -1,47 +1,55 @@
-
+<style>
+    .form-group{
+        width: 100% !important;
+    }
+    .container{
+        background-color: rgba(255, 254, 224, 0.9) !important;
+        border-radius: 10px;
+        padding: 20px;
+    }
+</style>
 <%const array = data.key.split("/")%>
 <%const id = array[array.length -1]%>
 <!-- IF BOOK SEARCH -->
-<div class="row justify-content-center">
-    <%if(data.title){%>
-        <h1><%=data.title%></h1>
-    <%}%>
-</div>
+<div class="container">
+    <div class="row justify-content-center">
+        <%if(data.title){%>
+            <h1><%=data.title%></h1>
+        <%}%>
+    </div>
 
-<div class="row justify-content-center">
-    <% if(data.first_publish_date){ %>
-        <h4><%= data.first_publish_date %></h4>
-    <%}%>
-    <%if(data.first_publish_year){%>
-        <h2><%= data.first_publish_year %></h2>
-    <%}%>
-</div> 
+    <div class="row justify-content-center">
+        <% if(data.first_publish_date){ %>
+            <h4><%= data.first_publish_date %></h4>
+        <%}%>
+        <%if(data.first_publish_year){%>
+            <h2><%= data.first_publish_year %></h2>
+        <%}%>
+    </div> 
 
-<div class="row justify-content-center">
-    <% if (data.covers){ %>
-        <% data.covers.forEach(cover => { %>
-            <a href="https://covers.openlibrary.org/b/id/<%= cover %>-L.jpg"><img src="https://covers.openlibrary.org/b/id/<%= cover %>-M.jpg" alt="<%=data.title%>" height="300px"></a>
-        <% }) %>
-    <%}%>
-</div>
+    <div class="row justify-content-center">
+        <% if (data.covers){ %>
+            <% data.covers.forEach(cover => { %>
+                <a href="https://covers.openlibrary.org/b/id/<%= cover %>-L.jpg"><img src="https://covers.openlibrary.org/b/id/<%= cover %>-M.jpg" alt="<%=data.title%>" height="300px"></a>
+            <% }) %>
+        <%}%>
+    </div>
 
-<!-- add to favorites button form -->
-<div class="row justify-content-center" style="margin: 20px 0px;">
-    <form action="/books/favorites" method="POST">
-        <input type="hidden" value="<%=data.title%>" name="title" id="title">
-        <input type="hidden" value="<%=data.author%>" name="author" id="author">
-        <input type="hidden" value="https://covers.openlibrary.org/b/id/<%= data.covers[0] %>-M.jpg" name="img_url" id="img_url">
-        <input type="hidden" value="<%=data.key%>" name="libraryId" id="libraryId">
-    
-        <button class="btn btn-primary" style="width: 200px; height: 50px;" type="submit">Add to Favorites</button>
-    </form>
-</div>
+    <!-- add to favorites button form -->
+    <div class="row justify-content-center" style="margin: 20px 0px;">
+        <form action="/books/favorites" method="POST">
+            <input type="hidden" value="<%=data.title%>" name="title" id="title">
+            <input type="hidden" value="<%=data.author%>" name="author" id="author">
+            <input type="hidden" value="https://covers.openlibrary.org/b/id/<%= data.covers[0] %>-M.jpg" name="img_url" id="img_url">
+            <input type="hidden" value="<%=data.key%>" name="libraryId" id="libraryId">
+        
+            <button class="btn btn-primary" style="width: 200px; height: 50px;" type="submit">Add to Favorites</button>
+        </form>
+    </div>
 
 <!-- ADD A REVIEW -->
-
-<div class="container">
     <div class="row" style="margin-bottom: 10px;">
-        <div class="col border">
+        <div class="col" style="border: 1px solid #007bff;">
             <div class="row justify-content-center" style="margin-bottom: 10px;">
                 <h3>Leave a review</h3>
             </div>
@@ -75,10 +83,7 @@
             <%}%>
         </div>
     </div>
-</div>
 
-
-<div class="container">
     <div class="row" style="margin-bottom: 10px;">
         <div class="column">
             
@@ -99,9 +104,7 @@
             <%}%>
         </div>
     </div>
-</div>
-            
-<div class="container">
+
     <div class="row" style="margin-bottom: 10px;">
         <div class="col">
             <%if(data.description){%>
@@ -126,8 +129,7 @@
             <%}%>
         </div>
     </div>
-</div>
-<div class="container">
+
     <div class="row" style="margin-bottom: 10px;">
         <div class="col">
             <% if(data.subject_people){%>

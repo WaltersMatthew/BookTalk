@@ -9,20 +9,33 @@
     </head>
     <body>
         <style>
-            /* BACKGROUND COLOR IN CASE OF IMG FAILURE */
             body{
+                /* BACKGROUND COLOR IN CASE OF IMG FAILURE */
                 background-color: rgb(255, 254, 224);
+                background-image: url("https://media.cntraveler.com/photos/5e73966ddf86d5000910707f/master/w_2580%2Cc_limit/George%2520Peabody%2520Library%2520E665TT.jpg");
+                background-attachment: fixed;
+                background-position: center;
+                background-repeat: no-repeat;
+                background-size: cover;
             }
-            li{
+            .form-group{
+                background-color: rgba(255, 254, 224, 0.7); 
+                border-radius: 10px; 
+                width: 33%;
+                padding: 20px;
+            }
+            nav li{
                 background-color: rgba(255, 254, 224, 0.7);
                 border-radius: 10px;
+                width: 109px;
+                text-align: center;
             }
         </style>
         
         <nav>
             <img src="https://www.wpbstv.org/skins/pbs/media/booktalk/book-talk-web-logo.jpg" height=100 class="justify-content-start">
             <!-- NAV STYLING -->
-            <ul class="nav justify-content-end">
+            <ul class="nav justify-content-start">
                 <% if(user) { %>
                     <li class="nav-item">
                     <a class="nav-link active" href="/users/profile">Profile</a>

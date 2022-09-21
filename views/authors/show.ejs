@@ -1,13 +1,24 @@
+<style>
+    .container{
+        background-color: rgba(255, 254, 224, 0.9) !important;
+        border-radius: 10px;
+        padding: 10px;
+    }
+    .header{
+        text-align: center;
+    }
+</style>
+
 <%const array = data.key.split("/")%>
 <%const id = array[array.length -1]%>
 <div class="container">
     <div class="row" style="margin: 20px 0;">
-        <div class="col">
-            <h2>Details for author: <%=data.name%></h2>
+        <div class="col header">
+            <h1><%=data.name%></h1>
             <p>Born: <%=data.birth_date%></p>
             <%if(data.links){%>
                 <% data.links.forEach(link =>{ %>
-                    <a href="<%=link.url%>" target="_blank"><%=link.title%></a> 
+                    <a href="<%=link.url%>" target="_blank"><button class="btn btn-primary"><%=link.title%></button></a> 
                     <%})%>
             <%}%>
             <form action="/authors/favorites" method="POST" class="d-flex justify-content-center" style="margin-top: 100px;">
@@ -18,7 +29,7 @@
         </div>
         
         <div class="col">
-            <img src="https://covers.openlibrary.org/a/olid/<%=id%>-L.jpg" class="rounded" style="padding-left: 10px;" alt="Photo of <%=data.name%>">
+            <img src="https://covers.openlibrary.org/a/olid/<%=id%>-L.jpg" class="justify-content-end" style="padding-left: 10px;" alt="Photo of <%=data.name%>">
         </div>
     </div>
 

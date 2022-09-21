@@ -1,3 +1,30 @@
+<style>
+    .form-group{
+        background-color: rgba(255,255,255,0.7); border-radius: 10px; 
+        width: 66%;
+        padding: 20px;
+    }
+    h1{
+        text-align: center;
+        background-color: ;
+    }
+    .card{
+        margin: 25px 0;
+        width: 250px;
+        height: 500px;
+        display: inline-block;
+        background-color: rgba(255, 254, 224,0.9);
+    }
+    h2{
+        text-align: center;
+    }
+    u{
+        background-color: rgba(255, 254, 224,0.7);
+        border-radius: 10px;
+        padding: 10px;
+    }
+</style>
+
 <%if(!books.length){%>
     <p></p>
 <%}else{%>
@@ -22,50 +49,7 @@
                     <button class="btn btn-primary" type="submit">Accio authors!</button>
                 </form>
             </div>
-            <style>
-                body{
-                    background-image: url("https://media.cntraveler.com/photos/5e73966ddf86d5000910707f/master/w_2580%2Cc_limit/George%2520Peabody%2520Library%2520E665TT.jpg");
-                    background-attachment: fixed;
-                    background-position: center;
-                    background-repeat: no-repeat;
-                    background-size: cover;
-                }
-                .form-group{
-                    background-color: rgba(255,255,255,0.7); border-radius: 10px; 
-                    width: 66%;
-                    padding: 20px;
-                }
-                h1{
-                    text-align: center;
-                }
-            </style>
-
         <%}else{%>
-            <style>
-                body{
-                    background-image: url("https://media.cntraveler.com/photos/5e73966ddf86d5000910707f/master/w_2580%2Cc_limit/George%2520Peabody%2520Library%2520E665TT.jpg");
-                            background-attachment: fixed;
-                            background-position: center;
-                            background-repeat: no-repeat;
-                            background-size: cover;
-                }
-                .card{
-                    margin: 25px 0;
-                    width: 250px;
-                    height: 500px;
-                    display: inline-block;
-                    background-color: rgba(255,255,255,0.9);
-                }
-                h2{
-                    text-align: center;
-                }
-                u{
-                    background-color: rgba(255,255,255,0.7);
-                    border-radius: 10px;
-                    padding: 10px;
-                }
-            </style>
-
             <% books.forEach(book =>{ %>
                 <%const bookArray = book.libraryId.split("/")%>
                 <%const bookId = bookArray[bookArray.length -1]%>
