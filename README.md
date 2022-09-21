@@ -3,6 +3,7 @@
 ## Welcome to your new social hub for all things books!
 
 [live deployment](booktalk-waltersmatthew.koyeb.app)
+[github link](https://github.com/WaltersMatthew/BookTalk)
 ---
 * Add your favorite books, authors, and genres to your profile
 * View book details from your profile
