@@ -1,11 +1,12 @@
 # BookTalk
 
 ## Welcome to your new social hub for all things books!
+
+[live deployment](booktalk-waltersmatthew.koyeb.app)
 ---
 * Add your favorite books, authors, and genres to your profile
 * View book details from your profile
 * Leave reviews on books for all to see
-* Check your friend's profiles and see their favorites lists and reviews
 ---
 I will be using the [Open Library](https://openlibrary.org) API to populate all data and render the JSON into a simple, easy to read format. 
 
