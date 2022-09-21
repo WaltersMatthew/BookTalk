@@ -34,6 +34,7 @@ READ /authors/results/:id -- show single author result
 
 CREATE /books/:bookId --leave a review <br/>
 CREATE /users/new --make new user
+CREATE /users/profile --Make new author/book fave
 
 READ / -- show home page with login/signup<br/>
 READ /users/profile-- show the signed in user's profile and faved books/authors<br/>
@@ -66,7 +67,6 @@ DESTROY /users/:userId -- delete fave books/authors<br/>
 
 * As a user, I want to leave reviews on books I've read
 
-* As a user, I want to see other users' profiles and see their favorites lists
 
 ---
 
@@ -74,13 +74,15 @@ DESTROY /users/:userId -- delete fave books/authors<br/>
 
 * Query API and render results on page when searched
 * sign up and log in users with unique usernames
-* Add books and authors to favorites in profile
-* Delete books and authors in profile
+* Add books to favorites in profile
+* Delete books in profile
 * Leave reviews on books
 * Edit reviews
 
 ### Stretch goals
 
+* Add authors to favorites in profiles
+* Delete authors in profile
 * 0-5 ratings on favorited books in profile
 * View all profiles
 * Add profiles to friends

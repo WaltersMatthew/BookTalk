@@ -1,3 +1,24 @@
+<style>
+    body{
+        background-image: url("https://media.cntraveler.com/photos/5e73966ddf86d5000910707f/master/w_2580%2Cc_limit/George%2520Peabody%2520Library%2520E665TT.jpg");
+        background-attachment: fixed;
+        background-position: center;
+        background-repeat: no-repeat;
+        background-size: cover;
+    }
+    li, h1{
+        max-width: 800px;
+        background-color: rgba(255, 254, 224, 0.9) !important;
+        border-radius: 10px;
+    }
+    h1{
+        padding: 10px;
+    }
+    h3{
+        text-align: center;
+    }
+</style>
+
 <div class="d-flex align-items-center justify-content-center">
     <h1 class="align-items-center" style="margin-bottom: 15px;">Results for "<%=searchParams%>"</h1>
 </div>
@@ -8,12 +29,18 @@
             <% results.forEach(result =>{%>
                 <li class="list-group-item">
                     <%if(result.name){%>
-                        <p><strong><a href="/authors/results/<%=result.key%>"><%=result.name%></a></strong><br>
+                        <h3>
+                            <a href="/authors/results/<%=result.key%>"><%=result.name%></a>
+                        </h3>
+
+                        <p>
                             <%if(result.birth_date){%>
                                 born: <%=result.birth_date%>
                             <%}%>
                         </p>
+
                         <p>Top work: <%=result.top_work%></p>
+                        
                         <p>Total works: <%=result.work_count%></p>
                     <%}%>
                 </li>

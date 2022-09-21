@@ -9,6 +9,7 @@
     </head>
     <body>
         <style>
+            /* BACKGROUND COLOR IN CASE OF IMG FAILURE */
             body{
                 background-color: rgb(255, 254, 224);
             }
@@ -17,9 +18,10 @@
                 border-radius: 10px;
             }
         </style>
+        
         <nav>
-            <img src="https://www.wpbstv.org/skins/pbs/media/booktalk/book-talk-web-logo.jpg" height=100 class="nav justify-content-start">
-
+            <img src="https://www.wpbstv.org/skins/pbs/media/booktalk/book-talk-web-logo.jpg" height=100 class="justify-content-start">
+            <!-- NAV STYLING -->
             <ul class="nav justify-content-end">
                 <% if(user) { %>
                     <li class="nav-item">
@@ -43,6 +45,7 @@
                     <% } %>
             </ul>
         </nav>
-    <%- body %>
-</body>
+
+        <%- body %>
+    </body>
 </html>

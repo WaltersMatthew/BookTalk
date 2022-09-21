@@ -60,14 +60,14 @@
             </form> 
         </div>
         <div class="col">
-            <h3>Hear it from your fellow users!</h3>
             
-            <%if (!reviews){ %>
-                <p>Be the first to leave a review!</p>
-            <%}%>
-            
-            <%if(reviews){%>
-                <%reviews.forEach(review => { %>
+            <%if (!reviews.length){ %>
+                <h3>Be the first to leave a review!</h3>
+                <%}%>
+                
+                <%if(reviews.length){%>
+                    <h3>Hear it from your fellow users!</h3>
+                    <%reviews.forEach(review => { %>
                     <p style="border-left: 5px solid #007bff; padding-left: 10px;"><%=review.name%>:<br>
                     <%=review.content%></p>
                 <a href="/books/results/<%=id%>/edit/<%=review.id%>">edit</a>
@@ -104,13 +104,15 @@
 <div class="container">
     <div class="row" style="margin-bottom: 10px;">
         <div class="col">
-            <%if(typeof data.description == 'object'){ %>
-                <h3>Plot synopsis:</h3>
-                <p style="border-left: 5px solid #007bff; padding-left: 10px;"><%=data.description.value%></p>
-            <%}else{%>
-                <h3>Plot synopsis:</h3>
-                <p style="border-left: 5px solid #007bff; padding-left: 10px;"><%=data.description%></p>
-            <%}%>  
+            <%if(data.description){%>
+                <%if(typeof data.description == 'object'){ %>
+                    <h3>Plot synopsis:</h3>
+                    <p style="border-left: 5px solid #007bff; padding-left: 10px;"><%=data.description.value%></p>
+                <%}else{%>
+                    <h3>Plot synopsis:</h3>
+                    <p style="border-left: 5px solid #007bff; padding-left: 10px;"><%=data.description%></p>
+                <%}%>
+            <%}%>
         </div>
 
         <div class="col">

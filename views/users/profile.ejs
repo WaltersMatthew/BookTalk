@@ -1,8 +1,18 @@
-
+<style>
+    .card{
+        margin: 25px 0;
+        width: 250px;
+        height: 500px;
+        display: inline-block;
+    }
+    h2{
+        text-align: center;
+    }
+</style>
     <%if(!books.length){%>
         <p></p>
     <%}else{%>
-        <h2 style="text-align: center;"><u> <%=user.name%>'s favorite books 📚</u></h2>
+        <h2 ><u> <%=user.name%>'s favorite books 📚</u></h2>
     <%}%>
 
 
@@ -40,57 +50,64 @@
                     text-align: center;
                 }
             </style>
-            <%}else{%>
+
+        <%}else{%>
             <% books.forEach(book =>{ %>
                 <%const bookArray = book.libraryId.split("/")%>
                 <%const bookId = bookArray[bookArray.length -1]%>
                 
-                <div class="card justify-content-center flex-wrap" style="margin-top: 25px; height: 550px; width: 250px; display: inline-block;" >
+                <div class="card justify-content-center flex-wrap">
                     <img src="<%=book.img_url%>" class="card-img-top" style="height: 330px;" alt="<%=book.title%>">
                     
                     <div class="card-body" >
-                        <p class="card-title" style="text-align: center;"><strong><%=book.title%></strong></p>  
+                        <p class="card-title" style="text-align: center"><strong><%=book.title%></strong></p>  
                         <div class="align-items-end">
                             <!-- more info link -->
                             <div class="d-flex justify-content-center align-items-baseline">
-                                <a href="/books/results/<%=bookId%>" class="btn btn-primary">See details</a>    
+                                <a href="/books/results/<%=bookId%>" class="btn btn-primary">
+                                    See details
+                                </a>    
                             </div>
                             <!-- DELETE BOOK FORM -->
                             <div class="d-flex justify-content-center align-items-baseline">
                                 <form action="/books/<%=book.title%>/?_method=DELETE" method="POST">
-                                    <button type="submit" class="btn btn-primary">Delete</button>
+                                    <button type="submit" class="btn btn-primary">
+                                        Delete    
+                                    </button>
                                 </form>
                             </div>
                         </div>
                     </div>
                 </div>
-                <% }) %>
-            </div>
-        </div>
+            <% }) %>
         <%}%>
+    </div>
+</div>
 
         <!-- IF FAVORITED AUTHORS -->
 <% if(!authors.length){%>
     <p></p>
-<%} else{ %>
-
-    <h2 style="text-align: center;"><u> <%=user.name%>'s favorite authors ✍️</u></h2>
+<%}else{ %>
+    <h2 ><u> <%=user.name%>'s favorite authors ✍️</u></h2>
     
-    <div class="container align-items-center">
+    <div class="container d-flex justify-content-center">
         <div class="row">        
             <% authors.forEach(author =>{%>
+                <!-- SPLIT FOR AUTHOR KEY -->
                 <%const authorArray = author.authorId.split("/")%>
                 <%const authorKey = authorArray[authorArray.length -1]%>
-                
-                <div class="card justify-content-center flex-wrap" style="margin-top: 25px; width: 250px; height: 500px; display: inline-block;" >
+                <!-- CARD DIV -->
+                <div class="card justify-content-center flex-wrap">
                     <img src="https://covers.openlibrary.org/a/olid/<%= authorKey %>-L.jpg" class="card-img-top" style="height: 330px;" alt="<%=author.name%>">
                     
                     <div class="card-body" >
-                        <p class="card-title" style="text-align: center;"><strong><%=author.name%></strong></p>  
+                        <p class="card-title" style="text-align: center"><strong><%=author.name%></strong></p>  
                         <div>
+                            <!-- Details button -->
                             <div class="d-flex justify-content-center align-items-end">
                                 <a href="/authors/results/<%= authorKey %>" class="btn btn-primary">See details</a>    
                             </div>
+
                             <!-- DELETE AUTHORS FORM -->
                             <div class="d-flex justify-content-center align-items-end">
                                 <form action="<%= author.authorId %>/?_method=DELETE" method="POST">
@@ -100,7 +117,7 @@
                         </div>
                     </div>
                 </div>
-                <%})%>
-            </div>
+            <%})%>
         </div>
+    </div>
 <%}%>

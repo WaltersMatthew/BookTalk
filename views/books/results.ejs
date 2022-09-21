@@ -6,9 +6,13 @@
         background-repeat: no-repeat;
         background-size: cover;
     }
-    li{
+    li, h1{
+        max-width: 800px;
         background-color: rgba(255, 254, 224, 0.9) !important;
-        border-radius: 10px ;
+        border-radius: 10px;
+    }
+    h1{
+        padding: 10px;
     }
 </style>
 
@@ -27,7 +31,7 @@
                         <img style="margin-left: 10px; float: left;" class="img-thumbnail" src="https://covers.openlibrary.org/b/id/<%= result.cover_i %>-S.jpg" alt="<%= result.title %>">
                     <%}%>
                     <% if(result.title){%>
-                        <p style="margin-left: 10px; text-align: center;"><a href="/books/results/<%=id%>"><%= result.title %></a> by <%=result.author_name%>:
+                        <p style="text-align: center;"><a href="/books/results/<%=id%>"><%= result.title %></a> by <%=result.author_name%>:
                             <%=result.first_publish_year%> <%=result.first_publish_date%>
                         </p>
                     <%}%>    
