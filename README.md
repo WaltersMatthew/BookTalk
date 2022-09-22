@@ -4,15 +4,13 @@
 
 ## Welcome to your new social hub for all things books!
 
----
-
 * Add your favorite books, authors, and genres to your profile
 * View book details from your profile
 * Leave reviews on books for all to see
 
----
-
 I will be using the [Open Library](https://openlibrary.org) API to populate all data and render the JSON into a simple, easy to read format. 
+
+---
 
 # Proof of concept on API
 
