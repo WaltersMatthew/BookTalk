@@ -21,6 +21,33 @@ Author photo results <br/>
 
 ---
 
+Installation Instructions
+To run Simplifry on your local machine, first fork and clone this repository. Then follow these steps:
+
+* In your terminal, navigate to the cloned repository. Run the command:
+```
+npm -install 
+```
+to install all of the packages needed to run the app.
+
+* You will need to add a few files for functionality. In your terminal in the same location as above, run the following command:
+```touch .env``` 
+* In the .gitignore file, add ```node_modules``` and ```.env```
+
+* In the ```.env``` file, you need to add 3 variables. First, an ```ENC_KEY``` which can be a random string. For example, you would write:
+```
+ENC_KEY='Super_secret_string'
+```
+
+* You will need to create the database for this project and migrate the models to it. In your terminal, run the following two commands:
+```
+createdb booktalk
+sequelize db:migrate 
+```
+* You're all set! run the ```nodemon``` command in your cloned repository and navigate to ```localhost.3000``` in your browswer.
+
+---
+
 ### ERDs
 
 ---
@@ -28,25 +55,26 @@ Author photo results <br/>
 ---
 ### Restful routing chart
 ---
-READ /books/results -- show search results
-READ /books/results/:id -- show single book result
 
-READ /authors/results --show search results
-READ /authors/results/:id -- show single author result
-
-CREATE /books/:bookId --leave a review <br/>
-CREATE /users/new --make new user
-CREATE /users/profile --Make new author/book fave
-
-READ / -- show home page with login/signup<br/>
-READ /users/profile-- show the signed in user's profile and faved books/authors<br/>
-READ /users/search -- call api to search list of book/author results<br/>
-
-UPDATE /books/:bookId -- edit a review
-
-DESTROY /users/:userId -- delete fave books/authors<br/>
-
-
+|Crud action | route | description |
+| :-------: | :----: |  :--------: |
+|   BOOKS  |
+| READ | /books/results| show search results |
+| READ | /books/results/:id | show single book result |
+| CREATE | /books/:bookId | leave a review |
+| CREATE | /books/:bookId | create new favorite in db |
+| UPDATE | /books/:bookId | edit a review |
+| DESTROY | /users/profile | delete fave book |
+|  AUTHORS  | 
+| READ | /authors/results| show search results |
+| READ | /authors/results/:id | show single author result |
+| CREATE | /authors/:bookId | create new favorite in db |
+| DESTROY | /users/profile | delete fave author |
+| USERS |
+| READ | / | show home page with login/signup |
+| CREATE | /users/new | make new user |
+| READ | /users/profile | show user's profile with faved books/authors |
+| READ | /users/search | call api to search list of book/author results |
 
 ---
 ### Wireframe
