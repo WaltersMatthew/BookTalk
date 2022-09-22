@@ -42,6 +42,9 @@ app.get('/', (req,res)=>{
     res.render('home.ejs')
 })
 
+app.get('*', (req, res) =>{
+    res.render('404.ejs')
+    })
 //controllers
 app.use('/users', require('./controllers/users'))
 app.use('/authors', require('./controllers/authors'))
