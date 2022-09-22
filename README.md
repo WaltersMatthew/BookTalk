@@ -21,12 +21,17 @@ Author photo results <br/>
 
 ---
 
-Installation Instructions
-To run Simplifry on your local machine, first fork and clone this repository. Then follow these steps:
+# Installation Instructions:
+
+To run BookTalk on your local machine, first fork and clone this repository. Then follow these steps:
 
 * In your terminal, navigate to the cloned repository. Run the command:
 ```
 npm -install 
+```
+or 
+```
+npm i
 ```
 to install all of the packages needed to run the app.
 
@@ -36,16 +41,20 @@ to install all of the packages needed to run the app.
 
 * In the ```.env``` file, you need to add 3 variables. First, an ```ENC_KEY``` which can be a random string. For example, you would write:
 ```
-ENC_KEY='Super_secret_string'
+ENC_KEY='super_secret_string'
 ```
 
+* Next, set up your config.json:
+    * username and password for your postgres account
+    * database: ```"booktalk"```
+    * dialect: ```"postgres"```
 * You will need to create the database for this project and migrate the models to it. In your terminal, run the following two commands:
 ```
 createdb booktalk
-sequelize db:migrate 
+sequelize db:migrate
 ```
 * You're all set! run the ```nodemon``` command in your cloned repository and navigate to ```localhost.3000``` in your browswer.
-
+* Enjoy!
 ---
 
 ### ERDs
