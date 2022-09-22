@@ -1,23 +1,45 @@
 # BookTalk
+[Live deployment](https://booktalk-waltersmatthew.koyeb.app/) <br/>
+[Github repo](https://github.com/WaltersMatthew/BookTalk)
 
 ## Welcome to your new social hub for all things books!
 
-[live deployment](https://booktalk-waltersmatthew.koyeb.app/) <br/>
-[github link](https://github.com/WaltersMatthew/BookTalk)
 ---
+
 * Add your favorite books, authors, and genres to your profile
 * View book details from your profile
 * Leave reviews on books for all to see
+
 ---
+
 I will be using the [Open Library](https://openlibrary.org) API to populate all data and render the JSON into a simple, easy to read format. 
 
-### proof of concept on API
+# Proof of concept on API
+
 JSON results<br/>
 <img src="img/titleJson.png" width='500'/> <br/>
 Cover art results <br/>
 <img src="img/coverArt.png" width='500'/> <br/>
 Author photo results <br/>
 <img src="img/authorPhoto.png" width='500'/>
+
+---
+
+# Tech stack:
+
+* Node.js
+* EJS
+* express-ejs-layouts
+* Express.js
+* Sequelize
+* PostgresQL
+* Bootstrap 5
+* Axios
+* bcrypt
+* cookie-parser
+* crypto-js
+* dotenv
+* method-override
 
 ---
 
@@ -37,7 +59,7 @@ to install all of the packages needed to run the app.
 
 * You will need to add a few files for functionality. In your terminal in the same location as above, run the following command:
 ```touch .env``` 
-* In the .gitignore file, add ```node_modules``` and ```.env```
+* In the ```.gitignore``` file, add ```node_modules``` and ```.env```
 
 * In the ```.env``` file, you need to add 3 variables. First, an ```ENC_KEY``` which can be a random string. For example, you would write:
 ```
@@ -57,12 +79,16 @@ sequelize db:migrate
 * Enjoy!
 ---
 
-### ERDs
+# ERDs
 
 ---
+
 <img src='img/ERD.png' width='500'/><br/>
+
 ---
-### Restful routing chart
+
+# Restful routing chart
+
 ---
 
 |Crud action | route | description |
@@ -86,12 +112,17 @@ sequelize db:migrate
 | READ | /users/search | call api to search list of book/author results |
 
 ---
-### Wireframe
+
+# Wireframes
+
 ---
+
 <img src='img/wireframe.png' width='500'/> <br/>
 
 ---
-### User stories
+
+# User stories
+
 ---
 
 * As a user, I want to search for books
@@ -109,7 +140,7 @@ sequelize db:migrate
 
 ---
 
-### MVP goals
+# MVP goals
 
 * Query API and render results on page when searched
 * sign up and log in users with unique usernames
@@ -118,13 +149,16 @@ sequelize db:migrate
 * Leave reviews on books
 * Edit reviews
 
-### Stretch goals
+# Stretch goals
 
-* Add authors to favorites in profiles
-* Delete authors in profile
+* Add authors to favorites in profiles ✔️
+* Delete authors in profile ✔️
 * 0-5 ratings on favorited books in profile
 * View all profiles
-* Add profiles to friends
+* Add profiles of friends
 * View subjects
 * Radio buttons to search by author, title, or subject
 
+# Post project reflections
+
+This fullstack app turned out to be much more difficult than I anticipated. My api was not equipped for me to go as in-depth on subjects/genres as I had hoped and the more features I introduced, the more I had to re-think my routing and model composition. I cemented my understanding of using HTTP verbs to manipulate data in models and learned a lot about styling with Bootstrap. I ended up with a project I am pleased with at this time and will be revisiting it a lot in the future to refine the code and add more features.
